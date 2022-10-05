@@ -1,0 +1,50 @@
+import "hashes/sha256/512bitPadded" as sha256_512bit;
+import "hashes/sha256/1024bitPadded" as sha256_1024bit;
+from "../common/common" import Transaction;
+
+const u32 M_ = 8;       /* number of transactions per block */
+
+type Hash = u32[8];
+const Hash empty_hash = [0; 8];
+
+def hash_transaction(Transaction t) -> Hash {
+	return sha256_1024bit( \
+	    [0; 8], \
+	    [0, 0, 0, 0, 0, 0, t.source[0], t.source[1]], \
+	    [
+		t.source[2],
+		t.source[3],
+		t.source[4],
+		t.destination[0],
+		t.destination[1],
+		t.destination[2],
+		t.destination[3],
+		t.destination[4]
+	    ], \
+	    t.amount \
+	);
+}
+
+def build_tree(Hash[8] hashes) -> Hash {
+	Hash h12 = sha256_512bit(hashes[0], hashes[1]);
+	Hash h34 = sha256_512bit(hashes[2], hashes[3]);
+	Hash h56 = sha256_512bit(hashes[4], hashes[5]);
+	Hash h78 = sha256_512bit(hashes[6], hashes[7]);
+
+	Hash h1234 = sha256_512bit(h12, h34);
+	Hash h5678 = sha256_512bit(h56, h78);
+
+	Hash root = sha256_512bit(h1234, h5678);
+	return root;
+}
+
+def main(private Transaction[M_] transactions, private Hash hash) {
+	Hash[M_] mut hashes = [empty_hash; M_];
+	for u32 j in 0..M_ {
+		hashes[j] = hash_transaction(transactions[j]);
+	}
+	/* (5) Merkle-tree root in block is valid */
+	assert(hash == build_tree(hashes));
+
+	return;
+}

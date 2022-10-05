@@ -1,0 +1,19 @@
+{
+  "name": "input_generator",
+  "version": "0.1.0",
+  "description": "Generate full-fledged input.json files for auditing from more concise versions",
+  "main": "bin/gen.js",
+  "bin": {
+    "gen": "./bin/gen.js"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Bertalan Zoltán Péter <bertalan.peter@bp99.eu>",
+  "license": "ISC",
+  "dependencies": {
+    "crypto-js": "^4.1.1",
+    "merkletreejs": "^0.2.32",
+    "yargs": "^17.5.1"
+  }
+}

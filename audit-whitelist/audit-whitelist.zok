@@ -1,0 +1,42 @@
+from "../common/common" import Account, Transaction, Block;
+
+def same_account(Account a, Account b) -> bool {
+	/* accounts are u32[5] under the hood */
+	return a[0] == b[0] \
+	    && a[1] == b[1] \
+	    && a[2] == b[2] \
+	    && a[3] == b[3] \
+	    && a[4] == b[4];
+}
+
+def is_whitelisted<W>(Account[W] whitelist, Account account) -> bool {
+	bool mut yes = false;
+	for u32 i in 0..W {
+		yes = if (yes) {
+			true /* once true, always true */
+		} else { same_account(whitelist[i], account) };
+	}
+	return yes;
+}
+
+const u32 N_ = 10;      /* number of blocks */
+const u32 M_ = 10;      /* number of transactions per block */
+const u32 W_ = 10;      /* length of whitelist */
+
+def main( \
+    private Block<M_>[N_] blocks, private u32 n_blocks, \
+    Account[W_] whitelist, u32 n_whitelist) {
+	for u32 i in 0..N_ {
+		Block<M_> b = blocks[i];
+		for u32 j in 0..M_ {
+			Transaction t = b.transactions[j];
+			/* (2) Destination is whitelisted */
+			assert(i >= n_blocks \
+			       || j >= b.n_transactions \
+			       || is_whitelisted( \
+				      whitelist, t.destination));
+		}
+	}
+
+	return;
+}
