@@ -1,0 +1,14 @@
+{
+  "balances": { "0": 10000, "1": 800, "2": 200 },
+  "blocks": [
+    [
+      { "source": "0", "destination": "1", "amount": 100 },
+      { "source": "1", "destination": "2", "amount": 20 }
+    ],
+    [
+      { "source": "1", "destination": "2", "amount": 10 },
+      { "source": "2", "destination": "1", "amount": 50 }
+    ]
+  ],
+  "whitelist": [ "1", "2" ]
+}
