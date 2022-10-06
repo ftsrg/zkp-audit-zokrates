@@ -1,4 +1,4 @@
-SRCS=		audit-whitelist.zok common.zok
+SRCS=		audit-whitelist.zok
 SRC_MAIN=	audit-whitelist.zok
 
 PROGRAM=	out
