@@ -1,4 +1,4 @@
-SRCS=		audit-balances.zok common.zok
+SRCS=		audit-balances.zok
 SRC_MAIN=	audit-balances.zok
 
 PROGRAM=	out

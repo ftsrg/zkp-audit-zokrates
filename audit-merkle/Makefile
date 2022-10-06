@@ -1,4 +1,4 @@
-SRCS=		audit-merkle.zok common.zok
+SRCS=		audit-merkle.zok
 SRC_MAIN=	audit-merkle.zok
 
 PROGRAM=	out
