@@ -1,0 +1,32 @@
+{
+  "compilerOptions": {
+    /* Type Checking */
+    // -> be as strict as possible
+    "allowUnreachableCode": false,
+    "allowUnusedLabels": false,
+    "exactOptionalPropertyTypes": true,
+    "noImplicitOverride": true,
+    "noImplicitReturns": true,
+    "noPropertyAccessFromIndexSignature": true,
+    "noUncheckedIndexedAccess": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "strict": true,
+
+    /* Modules */
+    "module": "node16",
+    "moduleResolution": "node",
+
+    /* Emit */
+    "noEmitOnError": true,
+    "outDir": "dist/",
+
+    /* Interop */
+    "esModuleInterop": true,
+    "forceConsistentCasingInFileNames": true,
+
+    /* Language & Environment */
+    "target": "es2022"
+  },
+  "exclude": ["node_modules/", "dist/"]
+}

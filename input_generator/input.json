@@ -8,6 +8,10 @@
     [
       { "source": "1", "destination": "2", "amount": 10 },
       { "source": "2", "destination": "1", "amount": 50 }
+    ],
+    [
+      { "source": "2", "destination": "1", "amount": 3 },
+      { "source": "2", "destination": "1", "amount": 7 }
     ]
   ],
   "whitelist": [ "1", "2" ]

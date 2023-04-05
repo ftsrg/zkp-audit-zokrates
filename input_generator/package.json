@@ -1,19 +1,21 @@
 {
   "name": "input_generator",
   "version": "0.1.0",
-  "description": "Generate full-fledged input.json files for auditing from more concise versions",
-  "main": "bin/gen.js",
-  "bin": {
-    "gen": "./bin/gen.js"
-  },
+  "description": "Generate inputs for the example ZoKrates audit programs from simple input files",
+  "main": "dist/index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "prepare": "npx tsc",
+    "start": "node dist/index.js"
   },
-  "author": "Bertalan Zoltán Péter <bertalan.peter@bp99.eu>",
-  "license": "ISC",
+  "author": "Bertalan Zoltán Péter <bpeter@edu.bme.hu>",
+  "license": "Apache-2.0",
+  "devDependencies": {
+    "typescript": "^5.0.3"
+  },
   "dependencies": {
+    "@types/crypto-js": "^4.1.1",
+    "cmd-ts": "^0.12.1",
     "crypto-js": "^4.1.1",
-    "merkletreejs": "^0.2.32",
-    "yargs": "^17.5.1"
+    "merkletreejs": "^0.3.9"
   }
 }
