@@ -84,35 +84,42 @@ const u32 B_ = 3;        /* number of accounts */
 
 def main( \
     private AccountBalance[B_] mut balances, \
-    private Block<M_>[N_] blocks, private u32 n_blocks,
-    public PublicBlock<M_>[N_] publicBlockData) {
+    private Block<M_>[N_] blocks, \
+    public PublicBlock<M_>[N_] publicBlockData \
+    private u32 n_blocks) {
 	for u32 i in 0..N_ {
 		Block<M_> b = blocks[i];
 		PublicBlock<M_> pb = publicBlockData[i];
 
-		assert(b.prev_hash == pb.prev_hash);
-		assert(b.n_transactions == pb.n_transactions);
+		/*
+		 * Commitment: assert previous hash and tx count are
+		 * valid
+		 */
+		assert(b.prevHash == pb.prevHash);
+		assert(b.transactionCount == pb.transactionCount);
 
 		for u32 j in 0..M_ {
 			Transaction t = b.transactions[j];
 			Hash h = pb.hashes[j];
 
 			/* Commitment: assert tx hash is valid */
-			assert(hash_transaction(t) == h);
+			assert(i >= n_blocks \
+			       || j >= b.transactionCount \
+			       || hash_transaction(t) == h);
 
 			/* (1) Source has sufficient balance */
 			assert(i >= n_blocks \
-			       || j >= b.n_transactions \
+			       || j >= b.transactionCount \
 			       || compare_balances( \
 				      t.amount, \
 				      get_balance(balances, t.source)));
 
 			/* (3), (4) Balance changes described by tx */
-			balances = if (j < b.n_transactions) {
+			balances = if (j < b.transactionCount) {
 				add_to_balance( \
 				    balances, t.source, t.amount)
 			} else { balances };
-			balances = if (j < b.n_transactions) {
+			balances = if (j < b.transactionCount) {
 				subtract_from_balance( \
 				    balances, t.destination, t.amount)
 			} else { balances };

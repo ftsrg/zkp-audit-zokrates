@@ -12,15 +12,15 @@ struct Transaction {
 }
 
 struct Block<M> {
-	Hash            prev_hash;
+	Hash            prevHash;
 	Transaction[M]  transactions;
-	u32             n_transactions;
+	u32             transactionCount;
 }
 
 struct PublicBlock<M> {
-	Hash		prev_hash;
-	Hash[M]		hashes;
-	u32		n_transactions;
+	Hash            prevHash;
+	Hash[M]         hashes;
+	u32             transactionCount;
 }
 
 def hash_transaction(Transaction t) -> Hash {
