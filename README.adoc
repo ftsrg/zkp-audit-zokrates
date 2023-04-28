@@ -1,0 +1,883 @@
+= Example ZoKrates Audit Programs
+Bertalan Zoltán Péter <bpeter@edu.bme.hu>
+2023-04-28
+:toc:
+
+== INTRODUCTION
+
+This repository hosts the prototype source code related to the article _Privacy-Preserving Noninteractive Compliance Audits of Blockchain Ledgers with Zero-Knowledge Proofs._
+
+*Please cite as*
+
+[bibtex]
+----
+@unpublished{peter,
+        title   = {Privacy-Preserving Noninteractive Compliance Audits of Blockchain Ledgers with Zero-Knowledge Proofs},
+        author  = {Péter, Bertalan Zoltán and Kocsis, Imre}
+}
+----
+
+
+== AUDIT PROGRAMS
+
+The three example audit programs reside in separate directories.
+Some shared ZoKrates code is factored out into `common/` and `util/`.
+
+In every program’s directory, you will find a `Makefile` which makes it easy to automatically perform all the steps to get from source code in ZoKrates and an input JSON file to a valid proof file.
+You can then try verifying the proof using the `verify` target.
+
+INFO: You will need https://pubs.opengroup.org/onlinepubs/009695299/utilities/make.html[`make`] to ‘build’ these targets, which should be available on most UNIX/Linux systems.
+
+[shell-session]
+----
+[audit-balances/] $ make
+  [... lots of output ...]
+
+[audit-balances/] $ make verify
+----
+
+The generated `abi.json` descibes what inputs the programs expect.
+
+
+== SHARED CODE
+
+=== Common types
+
+In `common.zok`, you will find the domain-specific types used in the audit programs, such as the structure that encodes a `Transaction` or a `Block`.
+
+=== `u32[8]` tools
+
+Unfortunately, the only way to deal with large (256-bit) numbers in ZoKrates is to store them in a split form in an array.
+The `u32_8_tools` ‘library’ provides the API to work with these `u32[8]` objects, defining functions for example, that are able to add two ``u32[8]``-encoded numbers together.
+
+
+== INPUT GENERATION
+
+`input.json` files would be extremely cumbersome to write by hand.
+This is why `input_generator` was born.
+It lets you generate `input.json` files from much simpler, human writable input files.
+
+For example, consider the following input (an input of the `input_generator`, that is):
+
+[json]
+----
+{
+  "balances": { "0": 10000, "1": 800, "2": 200 },
+  "blocks": [
+    [
+      { "source": "0", "destination": "1", "amount": 100 },
+      { "source": "1", "destination": "2", "amount": 20 }
+    ],
+    [
+      { "source": "1", "destination": "2", "amount": 10 },
+      { "source": "2", "destination": "1", "amount": 50 }
+    ],
+    [
+      { "source": "2", "destination": "1", "amount": 3 },
+      { "source": "2", "destination": "1", "amount": 7 }
+    ]
+  ],
+  "whitelist": [ "1", "2" ]
+}
+----
+
+It first describes the intial balances of three accounts, named `0`, `1`, and `2`.
+Then, the data within 3 blocks is defined: each block is a list of transactions and each transaction is of the form `{ "source": ACCOUNT, "destination": ACCOUNT, "amount": NUMBER }` where `ACCOUNT` is one of the accounts defined in the `balances` field and `NUMBER` is an arbitrary number.
+Finally, the whitelist is defined as list of accounts.
+
+NOTE: Account identifiers have to be strings even if they are numeric, as JSON keys are always strings.
+
+The `input_generator` project is able to take this data and generate the input files required by the audit programs, performing the necessary transformations, calculating hash values, etc.
+
+INFO: To use the input generator, you will need `NodeJS` and `npm`.
+
+First, transpile the Typescript code:
+
+[shell-session]
+----
+[input_generator/] $ npm install
+
+> input_generator@0.1.0 prepare
+> npx tsc
+
+[... some additional output ...]
+----
+
+Then run the script with the correct parametrization for the audit program you want to generate input for.
+
+[shell-session]
+----
+[input_generator/] $ npm start --silent -- -h
+input_generator
+
+OPTIONS:
+  --input-file, -i <str>                     - a string [optional]
+  --addresses-file, -a <str>                 - a string [optional]
+  --total-blocks, -n <number>                - a number [optional]
+  --total-transactions-per-blok, -m <number> - a number [optional]
+  --total-accounts, -b <number>              - a number [optional]
+  --total-whitelist-length, -w <number>      - a number [optional]
+  --merkle-block-index, -j <number>          - a number [optional]
+
+ARGUMENTS:
+  <audit type> - One of 'balances', 'whitelist', 'merkle'
+
+FLAGS:
+  --help, -h - show help
+----
+
+For instance, to generate input for `audit-balances`:
+
+[shell-session]
+----
+[input_generator/] $ npm start --silent -- -i input.json balances
+----
+
+Which gives you:
+
+[json]
+----
+[
+  [
+    [
+      [ "0x00d7b92a", "0xec4093dd", "0x1994262b", "0xf85d7235", "0x0f616a9c" ],
+      [ "0", "0", "0", "0", "0", "0", "0", "10000" ]
+    ],
+    [
+      [ "0x117b3909", "0x75488a3b", "0x0b78767c", "0x9a498d6d", "0xb296cad3" ],
+      [ "0", "0", "0", "0", "0", "0", "0", "800" ]
+    ],
+    [
+      [ "0x2253e0a6", "0x9100d2e3", "0x0dc1557b", "0x24c425d4", "0x6e0563d6" ],
+      [ "0", "0", "0", "0", "0", "0", "0", "200" ]
+    ]
+  ],
+  [
+    {
+      "prevHash": [ "0", "0", "0", "0", "0", "0", "0", "0" ],
+      "transactions": [
+        {
+          "source": [ "0x00d7b92a", "0xec4093dd", "0x1994262b", "0xf85d7235", "0x0f616a9c" ],
+          "destination": [ "0x117b3909", "0x75488a3b", "0x0b78767c", "0x9a498d6d", "0xb296cad3" ],
+          "amount": [ "0", "0", "0", "0", "0", "0", "0", "100" ]
+        },
+        {
+          "source": [ "0x117b3909", "0x75488a3b", "0x0b78767c", "0x9a498d6d", "0xb296cad3" ],
+          "destination": [ "0x2253e0a6", "0x9100d2e3", "0x0dc1557b", "0x24c425d4", "0x6e0563d6" ],
+          "amount": [ "0", "0", "0", "0", "0", "0", "0", "20" ]
+        },
+        {
+          "source": [ "0x00000000", "0x00000000", "0x00000000", "0x00000000", "0x00000000" ],
+          "destination": [ "0x00000000", "0x00000000", "0x00000000", "0x00000000", "0x00000000" ],
+          "amount": [ "0", "0", "0", "0", "0", "0", "0", "0" ]
+        },
+        {
+          "source": [ "0x00000000", "0x00000000", "0x00000000", "0x00000000", "0x00000000" ],
+          "destination": [ "0x00000000", "0x00000000", "0x00000000", "0x00000000", "0x00000000" ],
+          "amount": [ "0", "0", "0", "0", "0", "0", "0", "0" ]
+        },
+        {
+          "source": [ "0x00000000", "0x00000000", "0x00000000", "0x00000000", "0x00000000" ],
+          "destination": [ "0x00000000", "0x00000000", "0x00000000", "0x00000000", "0x00000000" ],
+          "amount": [ "0", "0", "0", "0", "0", "0", "0", "0" ]
+        },
+        {
+          "source": [ "0x00000000", "0x00000000", "0x00000000", "0x00000000", "0x00000000" ],
+          "destination": [ "0x00000000", "0x00000000", "0x00000000", "0x00000000", "0x00000000" ],
+          "amount": [ "0", "0", "0", "0", "0", "0", "0", "0" ]
+        },
+        {
+          "source": [ "0x00000000", "0x00000000", "0x00000000", "0x00000000", "0x00000000" ],
+          "destination": [ "0x00000000", "0x00000000", "0x00000000", "0x00000000", "0x00000000" ],
+          "amount": [ "0", "0", "0", "0", "0", "0", "0", "0" ]
+        },
+        {
+          "source": [ "0x00000000", "0x00000000", "0x00000000", "0x00000000", "0x00000000" ],
+          "destination": [ "0x00000000", "0x00000000", "0x00000000", "0x00000000", "0x00000000" ],
+          "amount": [ "0", "0", "0", "0", "0", "0", "0", "0" ]
+        },
+        {
+          "source": [ "0x00000000", "0x00000000", "0x00000000", "0x00000000", "0x00000000" ],
+          "destination": [ "0x00000000", "0x00000000", "0x00000000", "0x00000000", "0x00000000" ],
+          "amount": [ "0", "0", "0", "0", "0", "0", "0", "0" ]
+        },
+        {
+          "source": [ "0x00000000", "0x00000000", "0x00000000", "0x00000000", "0x00000000" ],
+          "destination": [ "0x00000000", "0x00000000", "0x00000000", "0x00000000", "0x00000000" ],
+          "amount": [ "0", "0", "0", "0", "0", "0", "0", "0" ]
+        }
+      ],
+      "transactionCount": "2"
+    },
+    {
+      "prevHash": [ "0xe1726e26", "0x2379c0b6", "0x38014108", "0xac29b0c7", "0xe6e7ddc1", "0x32cb6aa2", "0x7984c041", "0xa51571fd" ],
+      "transactions": [
+        {
+          "source": [ "0x117b3909", "0x75488a3b", "0x0b78767c", "0x9a498d6d", "0xb296cad3" ],
+          "destination": [ "0x2253e0a6", "0x9100d2e3", "0x0dc1557b", "0x24c425d4", "0x6e0563d6" ],
+          "amount": [ "0", "0", "0", "0", "0", "0", "0", "10" ]
+        },
+        {
+          "source": [ "0x2253e0a6", "0x9100d2e3", "0x0dc1557b", "0x24c425d4", "0x6e0563d6" ],
+          "destination": [ "0x117b3909", "0x75488a3b", "0x0b78767c", "0x9a498d6d", "0xb296cad3" ],
+          "amount": [ "0", "0", "0", "0", "0", "0", "0", "50" ]
+        },
+        {
+          "source": [ "0x00000000", "0x00000000", "0x00000000", "0x00000000", "0x00000000" ],
+          "destination": [ "0x00000000", "0x00000000", "0x00000000", "0x00000000", "0x00000000" ],
+          "amount": [ "0", "0", "0", "0", "0", "0", "0", "0" ]
+        },
+        {
+          "source": [ "0x00000000", "0x00000000", "0x00000000", "0x00000000", "0x00000000" ],
+          "destination": [ "0x00000000", "0x00000000", "0x00000000", "0x00000000", "0x00000000" ],
+          "amount": [ "0", "0", "0", "0", "0", "0", "0", "0" ]
+        },
+        {
+          "source": [ "0x00000000", "0x00000000", "0x00000000", "0x00000000", "0x00000000" ],
+          "destination": [ "0x00000000", "0x00000000", "0x00000000", "0x00000000", "0x00000000" ],
+          "amount": [ "0", "0", "0", "0", "0", "0", "0", "0" ]
+        },
+        {
+          "source": [ "0x00000000", "0x00000000", "0x00000000", "0x00000000", "0x00000000" ],
+          "destination": [ "0x00000000", "0x00000000", "0x00000000", "0x00000000", "0x00000000" ],
+          "amount": [ "0", "0", "0", "0", "0", "0", "0", "0" ]
+        },
+        {
+          "source": [ "0x00000000", "0x00000000", "0x00000000", "0x00000000", "0x00000000" ],
+          "destination": [ "0x00000000", "0x00000000", "0x00000000", "0x00000000", "0x00000000" ],
+          "amount": [ "0", "0", "0", "0", "0", "0", "0", "0" ]
+        },
+        {
+          "source": [ "0x00000000", "0x00000000", "0x00000000", "0x00000000", "0x00000000" ],
+          "destination": [ "0x00000000", "0x00000000", "0x00000000", "0x00000000", "0x00000000" ],
+          "amount": [ "0", "0", "0", "0", "0", "0", "0", "0" ]
+        },
+        {
+          "source": [ "0x00000000", "0x00000000", "0x00000000", "0x00000000", "0x00000000" ],
+          "destination": [ "0x00000000", "0x00000000", "0x00000000", "0x00000000", "0x00000000" ],
+          "amount": [ "0", "0", "0", "0", "0", "0", "0", "0" ]
+        },
+        {
+          "source": [ "0x00000000", "0x00000000", "0x00000000", "0x00000000", "0x00000000" ],
+          "destination": [ "0x00000000", "0x00000000", "0x00000000", "0x00000000", "0x00000000" ],
+          "amount": [ "0", "0", "0", "0", "0", "0", "0", "0" ]
+        }
+      ],
+      "transactionCount": "2"
+    },
+    {
+      "prevHash": [ "0x5262f9a5", "0x25e83cb6", "0xd72be06c", "0x1c35600c", "0xa985e1fa", "0xca1977cd", "0xc61dc795", "0x75266f27" ],
+      "transactions": [
+        {
+          "source": [ "0x2253e0a6", "0x9100d2e3", "0x0dc1557b", "0x24c425d4", "0x6e0563d6" ],
+          "destination": [ "0x117b3909", "0x75488a3b", "0x0b78767c", "0x9a498d6d", "0xb296cad3" ],
+          "amount": [ "0", "0", "0", "0", "0", "0", "0", "3" ]
+        },
+        {
+          "source": [ "0x2253e0a6", "0x9100d2e3", "0x0dc1557b", "0x24c425d4", "0x6e0563d6" ],
+          "destination": [ "0x117b3909", "0x75488a3b", "0x0b78767c", "0x9a498d6d", "0xb296cad3" ],
+          "amount": [ "0", "0", "0", "0", "0", "0", "0", "7" ]
+        },
+        {
+          "source": [ "0x00000000", "0x00000000", "0x00000000", "0x00000000", "0x00000000" ],
+          "destination": [ "0x00000000", "0x00000000", "0x00000000", "0x00000000", "0x00000000" ],
+          "amount": [ "0", "0", "0", "0", "0", "0", "0", "0" ]
+        },
+        {
+          "source": [ "0x00000000", "0x00000000", "0x00000000", "0x00000000", "0x00000000" ],
+          "destination": [ "0x00000000", "0x00000000", "0x00000000", "0x00000000", "0x00000000" ],
+          "amount": [ "0", "0", "0", "0", "0", "0", "0", "0" ]
+        },
+        {
+          "source": [ "0x00000000", "0x00000000", "0x00000000", "0x00000000", "0x00000000" ],
+          "destination": [ "0x00000000", "0x00000000", "0x00000000", "0x00000000", "0x00000000" ],
+          "amount": [ "0", "0", "0", "0", "0", "0", "0", "0" ]
+        },
+        {
+          "source": [ "0x00000000", "0x00000000", "0x00000000", "0x00000000", "0x00000000" ],
+          "destination": [ "0x00000000", "0x00000000", "0x00000000", "0x00000000", "0x00000000" ],
+          "amount": [ "0", "0", "0", "0", "0", "0", "0", "0" ]
+        },
+        {
+          "source": [ "0x00000000", "0x00000000", "0x00000000", "0x00000000", "0x00000000" ],
+          "destination": [ "0x00000000", "0x00000000", "0x00000000", "0x00000000", "0x00000000" ],
+          "amount": [ "0", "0", "0", "0", "0", "0", "0", "0" ]
+        },
+        {
+          "source": [ "0x00000000", "0x00000000", "0x00000000", "0x00000000", "0x00000000" ],
+          "destination": [ "0x00000000", "0x00000000", "0x00000000", "0x00000000", "0x00000000" ],
+          "amount": [ "0", "0", "0", "0", "0", "0", "0", "0" ]
+        },
+        {
+          "source": [ "0x00000000", "0x00000000", "0x00000000", "0x00000000", "0x00000000" ],
+          "destination": [ "0x00000000", "0x00000000", "0x00000000", "0x00000000", "0x00000000" ],
+          "amount": [ "0", "0", "0", "0", "0", "0", "0", "0" ]
+        },
+        {
+          "source": [ "0x00000000", "0x00000000", "0x00000000", "0x00000000", "0x00000000" ],
+          "destination": [ "0x00000000", "0x00000000", "0x00000000", "0x00000000", "0x00000000" ],
+          "amount": [ "0", "0", "0", "0", "0", "0", "0", "0" ]
+        }
+      ],
+      "transactionCount": "2"
+    },
+    {
+      "prevHash": [ "0", "0", "0", "0", "0", "0", "0", "0" ],
+      "transactions": [
+        {
+          "source": [ "0", "0", "0", "0", "0" ],
+          "destination": [ "0", "0", "0", "0", "0" ],
+          "amount": [ "0", "0", "0", "0", "0", "0", "0", "0" ]
+        },
+        {
+          "source": [ "0", "0", "0", "0", "0" ],
+          "destination": [ "0", "0", "0", "0", "0" ],
+          "amount": [ "0", "0", "0", "0", "0", "0", "0", "0" ]
+        },
+        {
+          "source": [ "0", "0", "0", "0", "0" ],
+          "destination": [ "0", "0", "0", "0", "0" ],
+          "amount": [ "0", "0", "0", "0", "0", "0", "0", "0" ]
+        },
+        {
+          "source": [ "0", "0", "0", "0", "0" ],
+          "destination": [ "0", "0", "0", "0", "0" ],
+          "amount": [ "0", "0", "0", "0", "0", "0", "0", "0" ]
+        },
+        {
+          "source": [ "0", "0", "0", "0", "0" ],
+          "destination": [ "0", "0", "0", "0", "0" ],
+          "amount": [ "0", "0", "0", "0", "0", "0", "0", "0" ]
+        },
+        {
+          "source": [ "0", "0", "0", "0", "0" ],
+          "destination": [ "0", "0", "0", "0", "0" ],
+          "amount": [ "0", "0", "0", "0", "0", "0", "0", "0" ]
+        },
+        {
+          "source": [ "0", "0", "0", "0", "0" ],
+          "destination": [ "0", "0", "0", "0", "0" ],
+          "amount": [ "0", "0", "0", "0", "0", "0", "0", "0" ]
+        },
+        {
+          "source": [ "0", "0", "0", "0", "0" ],
+          "destination": [ "0", "0", "0", "0", "0" ],
+          "amount": [ "0", "0", "0", "0", "0", "0", "0", "0" ]
+        },
+        {
+          "source": [ "0", "0", "0", "0", "0" ],
+          "destination": [ "0", "0", "0", "0", "0" ],
+          "amount": [ "0", "0", "0", "0", "0", "0", "0", "0" ]
+        },
+        {
+          "source": [ "0", "0", "0", "0", "0" ],
+          "destination": [ "0", "0", "0", "0", "0" ],
+          "amount": [ "0", "0", "0", "0", "0", "0", "0", "0" ]
+        }
+      ],
+      "transactionCount": "0"
+    },
+    {
+      "prevHash": [ "0", "0", "0", "0", "0", "0", "0", "0" ],
+      "transactions": [
+        {
+          "source": [ "0", "0", "0", "0", "0" ],
+          "destination": [ "0", "0", "0", "0", "0" ],
+          "amount": [ "0", "0", "0", "0", "0", "0", "0", "0" ]
+        },
+        {
+          "source": [ "0", "0", "0", "0", "0" ],
+          "destination": [ "0", "0", "0", "0", "0" ],
+          "amount": [ "0", "0", "0", "0", "0", "0", "0", "0" ]
+        },
+        {
+          "source": [ "0", "0", "0", "0", "0" ],
+          "destination": [ "0", "0", "0", "0", "0" ],
+          "amount": [ "0", "0", "0", "0", "0", "0", "0", "0" ]
+        },
+        {
+          "source": [ "0", "0", "0", "0", "0" ],
+          "destination": [ "0", "0", "0", "0", "0" ],
+          "amount": [ "0", "0", "0", "0", "0", "0", "0", "0" ]
+        },
+        {
+          "source": [ "0", "0", "0", "0", "0" ],
+          "destination": [ "0", "0", "0", "0", "0" ],
+          "amount": [ "0", "0", "0", "0", "0", "0", "0", "0" ]
+        },
+        {
+          "source": [ "0", "0", "0", "0", "0" ],
+          "destination": [ "0", "0", "0", "0", "0" ],
+          "amount": [ "0", "0", "0", "0", "0", "0", "0", "0" ]
+        },
+        {
+          "source": [ "0", "0", "0", "0", "0" ],
+          "destination": [ "0", "0", "0", "0", "0" ],
+          "amount": [ "0", "0", "0", "0", "0", "0", "0", "0" ]
+        },
+        {
+          "source": [ "0", "0", "0", "0", "0" ],
+          "destination": [ "0", "0", "0", "0", "0" ],
+          "amount": [ "0", "0", "0", "0", "0", "0", "0", "0" ]
+        },
+        {
+          "source": [ "0", "0", "0", "0", "0" ],
+          "destination": [ "0", "0", "0", "0", "0" ],
+          "amount": [ "0", "0", "0", "0", "0", "0", "0", "0" ]
+        },
+        {
+          "source": [ "0", "0", "0", "0", "0" ],
+          "destination": [ "0", "0", "0", "0", "0" ],
+          "amount": [ "0", "0", "0", "0", "0", "0", "0", "0" ]
+        }
+      ],
+      "transactionCount": "0"
+    },
+    {
+      "prevHash": [ "0", "0", "0", "0", "0", "0", "0", "0" ],
+      "transactions": [
+        {
+          "source": [ "0", "0", "0", "0", "0" ],
+          "destination": [ "0", "0", "0", "0", "0" ],
+          "amount": [ "0", "0", "0", "0", "0", "0", "0", "0" ]
+        },
+        {
+          "source": [ "0", "0", "0", "0", "0" ],
+          "destination": [ "0", "0", "0", "0", "0" ],
+          "amount": [ "0", "0", "0", "0", "0", "0", "0", "0" ]
+        },
+        {
+          "source": [ "0", "0", "0", "0", "0" ],
+          "destination": [ "0", "0", "0", "0", "0" ],
+          "amount": [ "0", "0", "0", "0", "0", "0", "0", "0" ]
+        },
+        {
+          "source": [ "0", "0", "0", "0", "0" ],
+          "destination": [ "0", "0", "0", "0", "0" ],
+          "amount": [ "0", "0", "0", "0", "0", "0", "0", "0" ]
+        },
+        {
+          "source": [ "0", "0", "0", "0", "0" ],
+          "destination": [ "0", "0", "0", "0", "0" ],
+          "amount": [ "0", "0", "0", "0", "0", "0", "0", "0" ]
+        },
+        {
+          "source": [ "0", "0", "0", "0", "0" ],
+          "destination": [ "0", "0", "0", "0", "0" ],
+          "amount": [ "0", "0", "0", "0", "0", "0", "0", "0" ]
+        },
+        {
+          "source": [ "0", "0", "0", "0", "0" ],
+          "destination": [ "0", "0", "0", "0", "0" ],
+          "amount": [ "0", "0", "0", "0", "0", "0", "0", "0" ]
+        },
+        {
+          "source": [ "0", "0", "0", "0", "0" ],
+          "destination": [ "0", "0", "0", "0", "0" ],
+          "amount": [ "0", "0", "0", "0", "0", "0", "0", "0" ]
+        },
+        {
+          "source": [ "0", "0", "0", "0", "0" ],
+          "destination": [ "0", "0", "0", "0", "0" ],
+          "amount": [ "0", "0", "0", "0", "0", "0", "0", "0" ]
+        },
+        {
+          "source": [ "0", "0", "0", "0", "0" ],
+          "destination": [ "0", "0", "0", "0", "0" ],
+          "amount": [ "0", "0", "0", "0", "0", "0", "0", "0" ]
+        }
+      ],
+      "transactionCount": "0"
+    },
+    {
+      "prevHash": [ "0", "0", "0", "0", "0", "0", "0", "0" ],
+      "transactions": [
+        {
+          "source": [ "0", "0", "0", "0", "0" ],
+          "destination": [ "0", "0", "0", "0", "0" ],
+          "amount": [ "0", "0", "0", "0", "0", "0", "0", "0" ]
+        },
+        {
+          "source": [ "0", "0", "0", "0", "0" ],
+          "destination": [ "0", "0", "0", "0", "0" ],
+          "amount": [ "0", "0", "0", "0", "0", "0", "0", "0" ]
+        },
+        {
+          "source": [ "0", "0", "0", "0", "0" ],
+          "destination": [ "0", "0", "0", "0", "0" ],
+          "amount": [ "0", "0", "0", "0", "0", "0", "0", "0" ]
+        },
+        {
+          "source": [ "0", "0", "0", "0", "0" ],
+          "destination": [ "0", "0", "0", "0", "0" ],
+          "amount": [ "0", "0", "0", "0", "0", "0", "0", "0" ]
+        },
+        {
+          "source": [ "0", "0", "0", "0", "0" ],
+          "destination": [ "0", "0", "0", "0", "0" ],
+          "amount": [ "0", "0", "0", "0", "0", "0", "0", "0" ]
+        },
+        {
+          "source": [ "0", "0", "0", "0", "0" ],
+          "destination": [ "0", "0", "0", "0", "0" ],
+          "amount": [ "0", "0", "0", "0", "0", "0", "0", "0" ]
+        },
+        {
+          "source": [ "0", "0", "0", "0", "0" ],
+          "destination": [ "0", "0", "0", "0", "0" ],
+          "amount": [ "0", "0", "0", "0", "0", "0", "0", "0" ]
+        },
+        {
+          "source": [ "0", "0", "0", "0", "0" ],
+          "destination": [ "0", "0", "0", "0", "0" ],
+          "amount": [ "0", "0", "0", "0", "0", "0", "0", "0" ]
+        },
+        {
+          "source": [ "0", "0", "0", "0", "0" ],
+          "destination": [ "0", "0", "0", "0", "0" ],
+          "amount": [ "0", "0", "0", "0", "0", "0", "0", "0" ]
+        },
+        {
+          "source": [ "0", "0", "0", "0", "0" ],
+          "destination": [ "0", "0", "0", "0", "0" ],
+          "amount": [ "0", "0", "0", "0", "0", "0", "0", "0" ]
+        }
+      ],
+      "transactionCount": "0"
+    },
+    {
+      "prevHash": [ "0", "0", "0", "0", "0", "0", "0", "0" ],
+      "transactions": [
+        {
+          "source": [ "0", "0", "0", "0", "0" ],
+          "destination": [ "0", "0", "0", "0", "0" ],
+          "amount": [ "0", "0", "0", "0", "0", "0", "0", "0" ]
+        },
+        {
+          "source": [ "0", "0", "0", "0", "0" ],
+          "destination": [ "0", "0", "0", "0", "0" ],
+          "amount": [ "0", "0", "0", "0", "0", "0", "0", "0" ]
+        },
+        {
+          "source": [ "0", "0", "0", "0", "0" ],
+          "destination": [ "0", "0", "0", "0", "0" ],
+          "amount": [ "0", "0", "0", "0", "0", "0", "0", "0" ]
+        },
+        {
+          "source": [ "0", "0", "0", "0", "0" ],
+          "destination": [ "0", "0", "0", "0", "0" ],
+          "amount": [ "0", "0", "0", "0", "0", "0", "0", "0" ]
+        },
+        {
+          "source": [ "0", "0", "0", "0", "0" ],
+          "destination": [ "0", "0", "0", "0", "0" ],
+          "amount": [ "0", "0", "0", "0", "0", "0", "0", "0" ]
+        },
+        {
+          "source": [ "0", "0", "0", "0", "0" ],
+          "destination": [ "0", "0", "0", "0", "0" ],
+          "amount": [ "0", "0", "0", "0", "0", "0", "0", "0" ]
+        },
+        {
+          "source": [ "0", "0", "0", "0", "0" ],
+          "destination": [ "0", "0", "0", "0", "0" ],
+          "amount": [ "0", "0", "0", "0", "0", "0", "0", "0" ]
+        },
+        {
+          "source": [ "0", "0", "0", "0", "0" ],
+          "destination": [ "0", "0", "0", "0", "0" ],
+          "amount": [ "0", "0", "0", "0", "0", "0", "0", "0" ]
+        },
+        {
+          "source": [ "0", "0", "0", "0", "0" ],
+          "destination": [ "0", "0", "0", "0", "0" ],
+          "amount": [ "0", "0", "0", "0", "0", "0", "0", "0" ]
+        },
+        {
+          "source": [ "0", "0", "0", "0", "0" ],
+          "destination": [ "0", "0", "0", "0", "0" ],
+          "amount": [ "0", "0", "0", "0", "0", "0", "0", "0" ]
+        }
+      ],
+      "transactionCount": "0"
+    },
+    {
+      "prevHash": [ "0", "0", "0", "0", "0", "0", "0", "0" ],
+      "transactions": [
+        {
+          "source": [ "0", "0", "0", "0", "0" ],
+          "destination": [ "0", "0", "0", "0", "0" ],
+          "amount": [ "0", "0", "0", "0", "0", "0", "0", "0" ]
+        },
+        {
+          "source": [ "0", "0", "0", "0", "0" ],
+          "destination": [ "0", "0", "0", "0", "0" ],
+          "amount": [ "0", "0", "0", "0", "0", "0", "0", "0" ]
+        },
+        {
+          "source": [ "0", "0", "0", "0", "0" ],
+          "destination": [ "0", "0", "0", "0", "0" ],
+          "amount": [ "0", "0", "0", "0", "0", "0", "0", "0" ]
+        },
+        {
+          "source": [ "0", "0", "0", "0", "0" ],
+          "destination": [ "0", "0", "0", "0", "0" ],
+          "amount": [ "0", "0", "0", "0", "0", "0", "0", "0" ]
+        },
+        {
+          "source": [ "0", "0", "0", "0", "0" ],
+          "destination": [ "0", "0", "0", "0", "0" ],
+          "amount": [ "0", "0", "0", "0", "0", "0", "0", "0" ]
+        },
+        {
+          "source": [ "0", "0", "0", "0", "0" ],
+          "destination": [ "0", "0", "0", "0", "0" ],
+          "amount": [ "0", "0", "0", "0", "0", "0", "0", "0" ]
+        },
+        {
+          "source": [ "0", "0", "0", "0", "0" ],
+          "destination": [ "0", "0", "0", "0", "0" ],
+          "amount": [ "0", "0", "0", "0", "0", "0", "0", "0" ]
+        },
+        {
+          "source": [ "0", "0", "0", "0", "0" ],
+          "destination": [ "0", "0", "0", "0", "0" ],
+          "amount": [ "0", "0", "0", "0", "0", "0", "0", "0" ]
+        },
+        {
+          "source": [ "0", "0", "0", "0", "0" ],
+          "destination": [ "0", "0", "0", "0", "0" ],
+          "amount": [ "0", "0", "0", "0", "0", "0", "0", "0" ]
+        },
+        {
+          "source": [ "0", "0", "0", "0", "0" ],
+          "destination": [ "0", "0", "0", "0", "0" ],
+          "amount": [ "0", "0", "0", "0", "0", "0", "0", "0" ]
+        }
+      ],
+      "transactionCount": "0"
+    },
+    {
+      "prevHash": [ "0", "0", "0", "0", "0", "0", "0", "0" ],
+      "transactions": [
+        {
+          "source": [ "0", "0", "0", "0", "0" ],
+          "destination": [ "0", "0", "0", "0", "0" ],
+          "amount": [ "0", "0", "0", "0", "0", "0", "0", "0" ]
+        },
+        {
+          "source": [ "0", "0", "0", "0", "0" ],
+          "destination": [ "0", "0", "0", "0", "0" ],
+          "amount": [ "0", "0", "0", "0", "0", "0", "0", "0" ]
+        },
+        {
+          "source": [ "0", "0", "0", "0", "0" ],
+          "destination": [ "0", "0", "0", "0", "0" ],
+          "amount": [ "0", "0", "0", "0", "0", "0", "0", "0" ]
+        },
+        {
+          "source": [ "0", "0", "0", "0", "0" ],
+          "destination": [ "0", "0", "0", "0", "0" ],
+          "amount": [ "0", "0", "0", "0", "0", "0", "0", "0" ]
+        },
+        {
+          "source": [ "0", "0", "0", "0", "0" ],
+          "destination": [ "0", "0", "0", "0", "0" ],
+          "amount": [ "0", "0", "0", "0", "0", "0", "0", "0" ]
+        },
+        {
+          "source": [ "0", "0", "0", "0", "0" ],
+          "destination": [ "0", "0", "0", "0", "0" ],
+          "amount": [ "0", "0", "0", "0", "0", "0", "0", "0" ]
+        },
+        {
+          "source": [ "0", "0", "0", "0", "0" ],
+          "destination": [ "0", "0", "0", "0", "0" ],
+          "amount": [ "0", "0", "0", "0", "0", "0", "0", "0" ]
+        },
+        {
+          "source": [ "0", "0", "0", "0", "0" ],
+          "destination": [ "0", "0", "0", "0", "0" ],
+          "amount": [ "0", "0", "0", "0", "0", "0", "0", "0" ]
+        },
+        {
+          "source": [ "0", "0", "0", "0", "0" ],
+          "destination": [ "0", "0", "0", "0", "0" ],
+          "amount": [ "0", "0", "0", "0", "0", "0", "0", "0" ]
+        },
+        {
+          "source": [ "0", "0", "0", "0", "0" ],
+          "destination": [ "0", "0", "0", "0", "0" ],
+          "amount": [ "0", "0", "0", "0", "0", "0", "0", "0" ]
+        }
+      ],
+      "transactionCount": "0"
+    }
+  ],
+  [
+    {
+      "prevHash": [ "0", "0", "0", "0", "0", "0", "0", "0" ],
+      "hashes": [
+        [ "5729833d", "d7cba892", "968ab414", "a7fe9f45", "a4071f52", "13c1b8b5", "e815b741", "7069a971" ],
+        [ "3e21afa4", "119f9d16", "f208f547", "dc3ad249", "be7647e6", "cf79924d", "0f8d2dff", "f41c53bf" ],
+        [ "38723a2e", "5e8a17aa", "7950dc00", "8209944e", "898f69a7", "bd10a23c", "839d341e", "935fd5ca" ],
+        [ "38723a2e", "5e8a17aa", "7950dc00", "8209944e", "898f69a7", "bd10a23c", "839d341e", "935fd5ca" ],
+        [ "38723a2e", "5e8a17aa", "7950dc00", "8209944e", "898f69a7", "bd10a23c", "839d341e", "935fd5ca" ],
+        [ "38723a2e", "5e8a17aa", "7950dc00", "8209944e", "898f69a7", "bd10a23c", "839d341e", "935fd5ca" ],
+        [ "38723a2e", "5e8a17aa", "7950dc00", "8209944e", "898f69a7", "bd10a23c", "839d341e", "935fd5ca" ],
+        [ "38723a2e", "5e8a17aa", "7950dc00", "8209944e", "898f69a7", "bd10a23c", "839d341e", "935fd5ca" ],
+        [ "38723a2e", "5e8a17aa", "7950dc00", "8209944e", "898f69a7", "bd10a23c", "839d341e", "935fd5ca" ],
+        [ "38723a2e", "5e8a17aa", "7950dc00", "8209944e", "898f69a7", "bd10a23c", "839d341e", "935fd5ca" ]
+      ],
+      "transactionCount": "2"
+    },
+    {
+      "prevHash": [ "0xe1726e26", "0x2379c0b6", "0x38014108", "0xac29b0c7", "0xe6e7ddc1", "0x32cb6aa2", "0x7984c041", "0xa51571fd" ],
+      "hashes": [
+        [ "8780dce7", "e6ac8674", "48b809a5", "9ca3aeba", "6ed2fa01", "acca3387", "e34a631f", "ee56336b" ],
+        [ "b62877c3", "7dde6323", "204f1bd0", "bb06e3ab", "7d4c539a", "715c02ec", "0338edd6", "808f8010" ],
+        [ "38723a2e", "5e8a17aa", "7950dc00", "8209944e", "898f69a7", "bd10a23c", "839d341e", "935fd5ca" ],
+        [ "38723a2e", "5e8a17aa", "7950dc00", "8209944e", "898f69a7", "bd10a23c", "839d341e", "935fd5ca" ],
+        [ "38723a2e", "5e8a17aa", "7950dc00", "8209944e", "898f69a7", "bd10a23c", "839d341e", "935fd5ca" ],
+        [ "38723a2e", "5e8a17aa", "7950dc00", "8209944e", "898f69a7", "bd10a23c", "839d341e", "935fd5ca" ],
+        [ "38723a2e", "5e8a17aa", "7950dc00", "8209944e", "898f69a7", "bd10a23c", "839d341e", "935fd5ca" ],
+        [ "38723a2e", "5e8a17aa", "7950dc00", "8209944e", "898f69a7", "bd10a23c", "839d341e", "935fd5ca" ],
+        [ "38723a2e", "5e8a17aa", "7950dc00", "8209944e", "898f69a7", "bd10a23c", "839d341e", "935fd5ca" ],
+        [ "38723a2e", "5e8a17aa", "7950dc00", "8209944e", "898f69a7", "bd10a23c", "839d341e", "935fd5ca" ]
+      ],
+      "transactionCount": "2"
+    },
+    {
+      "prevHash": [ "0x5262f9a5", "0x25e83cb6", "0xd72be06c", "0x1c35600c", "0xa985e1fa", "0xca1977cd", "0xc61dc795", "0x75266f27" ],
+      "hashes": [
+        [ "95f7089e", "23d2755b", "7cfa5094", "9713239a", "ca26d632", "436fd1ca", "fa967de8", "53f37886" ],
+        [ "0d941c77", "61d9e3a3", "c7119b6e", "1f6ae8b5", "c7ec453b", "7960f35c", "027ccfda", "82adcfcb" ],
+        [ "38723a2e", "5e8a17aa", "7950dc00", "8209944e", "898f69a7", "bd10a23c", "839d341e", "935fd5ca" ],
+        [ "38723a2e", "5e8a17aa", "7950dc00", "8209944e", "898f69a7", "bd10a23c", "839d341e", "935fd5ca" ],
+        [ "38723a2e", "5e8a17aa", "7950dc00", "8209944e", "898f69a7", "bd10a23c", "839d341e", "935fd5ca" ],
+        [ "38723a2e", "5e8a17aa", "7950dc00", "8209944e", "898f69a7", "bd10a23c", "839d341e", "935fd5ca" ],
+        [ "38723a2e", "5e8a17aa", "7950dc00", "8209944e", "898f69a7", "bd10a23c", "839d341e", "935fd5ca" ],
+        [ "38723a2e", "5e8a17aa", "7950dc00", "8209944e", "898f69a7", "bd10a23c", "839d341e", "935fd5ca" ],
+        [ "38723a2e", "5e8a17aa", "7950dc00", "8209944e", "898f69a7", "bd10a23c", "839d341e", "935fd5ca" ],
+        [ "38723a2e", "5e8a17aa", "7950dc00", "8209944e", "898f69a7", "bd10a23c", "839d341e", "935fd5ca" ]
+      ],
+      "transactionCount": "2"
+    },
+    {
+      "prevHash": [ "0", "0", "0", "0", "0", "0", "0", "0" ],
+      "hashes": [
+        [ "10eef285", "deef7a4b", "7c82b22a", "a53589b7", "833df29d", "e3814649", "c772bbd5", "c832f365" ],
+        [ "10eef285", "deef7a4b", "7c82b22a", "a53589b7", "833df29d", "e3814649", "c772bbd5", "c832f365" ],
+        [ "10eef285", "deef7a4b", "7c82b22a", "a53589b7", "833df29d", "e3814649", "c772bbd5", "c832f365" ],
+        [ "10eef285", "deef7a4b", "7c82b22a", "a53589b7", "833df29d", "e3814649", "c772bbd5", "c832f365" ],
+        [ "10eef285", "deef7a4b", "7c82b22a", "a53589b7", "833df29d", "e3814649", "c772bbd5", "c832f365" ],
+        [ "10eef285", "deef7a4b", "7c82b22a", "a53589b7", "833df29d", "e3814649", "c772bbd5", "c832f365" ],
+        [ "10eef285", "deef7a4b", "7c82b22a", "a53589b7", "833df29d", "e3814649", "c772bbd5", "c832f365" ],
+        [ "10eef285", "deef7a4b", "7c82b22a", "a53589b7", "833df29d", "e3814649", "c772bbd5", "c832f365" ],
+        [ "10eef285", "deef7a4b", "7c82b22a", "a53589b7", "833df29d", "e3814649", "c772bbd5", "c832f365" ],
+        [ "10eef285", "deef7a4b", "7c82b22a", "a53589b7", "833df29d", "e3814649", "c772bbd5", "c832f365" ]
+      ],
+      "transactionCount": "0"
+    },
+    {
+      "prevHash": [ "0", "0", "0", "0", "0", "0", "0", "0" ],
+      "hashes": [
+        [ "10eef285", "deef7a4b", "7c82b22a", "a53589b7", "833df29d", "e3814649", "c772bbd5", "c832f365" ],
+        [ "10eef285", "deef7a4b", "7c82b22a", "a53589b7", "833df29d", "e3814649", "c772bbd5", "c832f365" ],
+        [ "10eef285", "deef7a4b", "7c82b22a", "a53589b7", "833df29d", "e3814649", "c772bbd5", "c832f365" ],
+        [ "10eef285", "deef7a4b", "7c82b22a", "a53589b7", "833df29d", "e3814649", "c772bbd5", "c832f365" ],
+        [ "10eef285", "deef7a4b", "7c82b22a", "a53589b7", "833df29d", "e3814649", "c772bbd5", "c832f365" ],
+        [ "10eef285", "deef7a4b", "7c82b22a", "a53589b7", "833df29d", "e3814649", "c772bbd5", "c832f365" ],
+        [ "10eef285", "deef7a4b", "7c82b22a", "a53589b7", "833df29d", "e3814649", "c772bbd5", "c832f365" ],
+        [ "10eef285", "deef7a4b", "7c82b22a", "a53589b7", "833df29d", "e3814649", "c772bbd5", "c832f365" ],
+        [ "10eef285", "deef7a4b", "7c82b22a", "a53589b7", "833df29d", "e3814649", "c772bbd5", "c832f365" ],
+        [ "10eef285", "deef7a4b", "7c82b22a", "a53589b7", "833df29d", "e3814649", "c772bbd5", "c832f365" ]
+      ],
+      "transactionCount": "0"
+    },
+    {
+      "prevHash": [ "0", "0", "0", "0", "0", "0", "0", "0" ],
+      "hashes": [
+        [ "10eef285", "deef7a4b", "7c82b22a", "a53589b7", "833df29d", "e3814649", "c772bbd5", "c832f365" ],
+        [ "10eef285", "deef7a4b", "7c82b22a", "a53589b7", "833df29d", "e3814649", "c772bbd5", "c832f365" ],
+        [ "10eef285", "deef7a4b", "7c82b22a", "a53589b7", "833df29d", "e3814649", "c772bbd5", "c832f365" ],
+        [ "10eef285", "deef7a4b", "7c82b22a", "a53589b7", "833df29d", "e3814649", "c772bbd5", "c832f365" ],
+        [ "10eef285", "deef7a4b", "7c82b22a", "a53589b7", "833df29d", "e3814649", "c772bbd5", "c832f365" ],
+        [ "10eef285", "deef7a4b", "7c82b22a", "a53589b7", "833df29d", "e3814649", "c772bbd5", "c832f365" ],
+        [ "10eef285", "deef7a4b", "7c82b22a", "a53589b7", "833df29d", "e3814649", "c772bbd5", "c832f365" ],
+        [ "10eef285", "deef7a4b", "7c82b22a", "a53589b7", "833df29d", "e3814649", "c772bbd5", "c832f365" ],
+        [ "10eef285", "deef7a4b", "7c82b22a", "a53589b7", "833df29d", "e3814649", "c772bbd5", "c832f365" ],
+        [ "10eef285", "deef7a4b", "7c82b22a", "a53589b7", "833df29d", "e3814649", "c772bbd5", "c832f365" ]
+      ],
+      "transactionCount": "0"
+    },
+    {
+      "prevHash": [ "0", "0", "0", "0", "0", "0", "0", "0" ],
+      "hashes": [
+        [ "10eef285", "deef7a4b", "7c82b22a", "a53589b7", "833df29d", "e3814649", "c772bbd5", "c832f365" ],
+        [ "10eef285", "deef7a4b", "7c82b22a", "a53589b7", "833df29d", "e3814649", "c772bbd5", "c832f365" ],
+        [ "10eef285", "deef7a4b", "7c82b22a", "a53589b7", "833df29d", "e3814649", "c772bbd5", "c832f365" ],
+        [ "10eef285", "deef7a4b", "7c82b22a", "a53589b7", "833df29d", "e3814649", "c772bbd5", "c832f365" ],
+        [ "10eef285", "deef7a4b", "7c82b22a", "a53589b7", "833df29d", "e3814649", "c772bbd5", "c832f365" ],
+        [ "10eef285", "deef7a4b", "7c82b22a", "a53589b7", "833df29d", "e3814649", "c772bbd5", "c832f365" ],
+        [ "10eef285", "deef7a4b", "7c82b22a", "a53589b7", "833df29d", "e3814649", "c772bbd5", "c832f365" ],
+        [ "10eef285", "deef7a4b", "7c82b22a", "a53589b7", "833df29d", "e3814649", "c772bbd5", "c832f365" ],
+        [ "10eef285", "deef7a4b", "7c82b22a", "a53589b7", "833df29d", "e3814649", "c772bbd5", "c832f365" ],
+        [ "10eef285", "deef7a4b", "7c82b22a", "a53589b7", "833df29d", "e3814649", "c772bbd5", "c832f365" ]
+      ],
+      "transactionCount": "0"
+    },
+    {
+      "prevHash": [ "0", "0", "0", "0", "0", "0", "0", "0" ],
+      "hashes": [
+        [ "10eef285", "deef7a4b", "7c82b22a", "a53589b7", "833df29d", "e3814649", "c772bbd5", "c832f365" ],
+        [ "10eef285", "deef7a4b", "7c82b22a", "a53589b7", "833df29d", "e3814649", "c772bbd5", "c832f365" ],
+        [ "10eef285", "deef7a4b", "7c82b22a", "a53589b7", "833df29d", "e3814649", "c772bbd5", "c832f365" ],
+        [ "10eef285", "deef7a4b", "7c82b22a", "a53589b7", "833df29d", "e3814649", "c772bbd5", "c832f365" ],
+        [ "10eef285", "deef7a4b", "7c82b22a", "a53589b7", "833df29d", "e3814649", "c772bbd5", "c832f365" ],
+        [ "10eef285", "deef7a4b", "7c82b22a", "a53589b7", "833df29d", "e3814649", "c772bbd5", "c832f365" ],
+        [ "10eef285", "deef7a4b", "7c82b22a", "a53589b7", "833df29d", "e3814649", "c772bbd5", "c832f365" ],
+        [ "10eef285", "deef7a4b", "7c82b22a", "a53589b7", "833df29d", "e3814649", "c772bbd5", "c832f365" ],
+        [ "10eef285", "deef7a4b", "7c82b22a", "a53589b7", "833df29d", "e3814649", "c772bbd5", "c832f365" ],
+        [ "10eef285", "deef7a4b", "7c82b22a", "a53589b7", "833df29d", "e3814649", "c772bbd5", "c832f365" ]
+      ],
+      "transactionCount": "0"
+    },
+    {
+      "prevHash": [ "0", "0", "0", "0", "0", "0", "0", "0" ],
+      "hashes": [
+        [ "10eef285", "deef7a4b", "7c82b22a", "a53589b7", "833df29d", "e3814649", "c772bbd5", "c832f365" ],
+        [ "10eef285", "deef7a4b", "7c82b22a", "a53589b7", "833df29d", "e3814649", "c772bbd5", "c832f365" ],
+        [ "10eef285", "deef7a4b", "7c82b22a", "a53589b7", "833df29d", "e3814649", "c772bbd5", "c832f365" ],
+        [ "10eef285", "deef7a4b", "7c82b22a", "a53589b7", "833df29d", "e3814649", "c772bbd5", "c832f365" ],
+        [ "10eef285", "deef7a4b", "7c82b22a", "a53589b7", "833df29d", "e3814649", "c772bbd5", "c832f365" ],
+        [ "10eef285", "deef7a4b", "7c82b22a", "a53589b7", "833df29d", "e3814649", "c772bbd5", "c832f365" ],
+        [ "10eef285", "deef7a4b", "7c82b22a", "a53589b7", "833df29d", "e3814649", "c772bbd5", "c832f365" ],
+        [ "10eef285", "deef7a4b", "7c82b22a", "a53589b7", "833df29d", "e3814649", "c772bbd5", "c832f365" ],
+        [ "10eef285", "deef7a4b", "7c82b22a", "a53589b7", "833df29d", "e3814649", "c772bbd5", "c832f365" ],
+        [ "10eef285", "deef7a4b", "7c82b22a", "a53589b7", "833df29d", "e3814649", "c772bbd5", "c832f365" ]
+      ],
+      "transactionCount": "0"
+    },
+    {
+      "prevHash": [ "0", "0", "0", "0", "0", "0", "0", "0" ],
+      "hashes": [
+        [ "10eef285", "deef7a4b", "7c82b22a", "a53589b7", "833df29d", "e3814649", "c772bbd5", "c832f365" ],
+        [ "10eef285", "deef7a4b", "7c82b22a", "a53589b7", "833df29d", "e3814649", "c772bbd5", "c832f365" ],
+        [ "10eef285", "deef7a4b", "7c82b22a", "a53589b7", "833df29d", "e3814649", "c772bbd5", "c832f365" ],
+        [ "10eef285", "deef7a4b", "7c82b22a", "a53589b7", "833df29d", "e3814649", "c772bbd5", "c832f365" ],
+        [ "10eef285", "deef7a4b", "7c82b22a", "a53589b7", "833df29d", "e3814649", "c772bbd5", "c832f365" ],
+        [ "10eef285", "deef7a4b", "7c82b22a", "a53589b7", "833df29d", "e3814649", "c772bbd5", "c832f365" ],
+        [ "10eef285", "deef7a4b", "7c82b22a", "a53589b7", "833df29d", "e3814649", "c772bbd5", "c832f365" ],
+        [ "10eef285", "deef7a4b", "7c82b22a", "a53589b7", "833df29d", "e3814649", "c772bbd5", "c832f365" ],
+        [ "10eef285", "deef7a4b", "7c82b22a", "a53589b7", "833df29d", "e3814649", "c772bbd5", "c832f365" ],
+        [ "10eef285", "deef7a4b", "7c82b22a", "a53589b7", "833df29d", "e3814649", "c772bbd5", "c832f365" ]
+      ],
+      "transactionCount": "0"
+    }
+  ],
+  "3"
+]
+----
+
+NOTE: Output has been piped through https://stedolan.github.io/jq/[`jq`] and then manually adjusted; your output will not be prettified by default.
