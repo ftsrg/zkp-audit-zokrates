@@ -89,7 +89,7 @@ NOTE: Account identifiers have to be strings even if they are numeric, as JSON k
 
 The `input_generator` project is able to take this data and generate the input files required by the audit programs, performing the necessary transformations, calculating hash values, etc.
 
-INFO: To use the input generator, you will need `NodeJS` and `npm`.
+INFO: To use the input generator, you will need `NodeJS` **(≥ v14)** and `npm`.
 
 First, transpile the Typescript code:
 
