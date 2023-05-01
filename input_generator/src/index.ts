@@ -75,7 +75,7 @@ const app = command({
   }) => {
     if (type === 'merkle' && index === -1) {
       throw new Error(
-        'The block index option (-i) must be specified when' +
+        'The block index option (-j) must be specified when' +
         ' generating input for the Merkle audit type'
       )
     }
