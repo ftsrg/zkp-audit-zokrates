@@ -1,4 +1,5 @@
-from "../common/common" import Account, Transaction, Block;
+from "../common/common" import Account, Transaction, Block, PublicBlock;
+from "../common/common" import Hash, hash_transaction;
 
 def same_account(Account a, Account b) -> bool {
 	/* accounts are u32[5] under the hood */
@@ -50,7 +51,7 @@ def main( \
 
 			/* (2) Destination is whitelisted */
 			assert(i >= n_blocks \
-			       || j >= b.n_transactions \
+			       || j >= b.transactionCount \
 			       || is_whitelisted( \
 				      whitelist, t.destination));
 		}

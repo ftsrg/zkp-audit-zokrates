@@ -2,8 +2,6 @@ import "hashes/sha256/512bitPadded" as sha256_512bit;
 import "hashes/sha256/1024bitPadded" as sha256_1024bit;
 from "../common/common" import Transaction;
 
-const u32 M_ = 8;       /* number of transactions per block */
-
 type Hash = u32[8];
 const Hash empty_hash = [0; 8];
 
@@ -25,7 +23,7 @@ def hash_transaction(Transaction t) -> Hash {
 	);
 }
 
-def build_tree(Hash[8] hashes) -> Hash {
+def build_tree(Hash[10] hashes) -> Hash {
 	Hash h12 = sha256_512bit(hashes[0], hashes[1]);
 	Hash h34 = sha256_512bit(hashes[2], hashes[3]);
 	Hash h56 = sha256_512bit(hashes[4], hashes[5]);
@@ -37,6 +35,8 @@ def build_tree(Hash[8] hashes) -> Hash {
 	Hash root = sha256_512bit(h1234, h5678);
 	return root;
 }
+
+const u32 M_ = 10;       /* number of transactions per block */
 
 def main(private Transaction[M_] transactions, private Hash hash) {
 	Hash[M_] mut hashes = [empty_hash; M_];
