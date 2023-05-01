@@ -1,3 +1,4 @@
+import "hashes/sha256/256bitPadded" as sha256_256bit;
 import "hashes/sha256/512bitPadded" as sha256_512bit;
 import "hashes/sha256/1024bitPadded" as sha256_1024bit;
 from "../common/common" import Transaction;
@@ -24,15 +25,56 @@ def hash_transaction(Transaction t) -> Hash {
 }
 
 def build_tree(Hash[10] hashes) -> Hash {
-	Hash h12 = sha256_512bit(hashes[0], hashes[1]);
-	Hash h34 = sha256_512bit(hashes[2], hashes[3]);
-	Hash h56 = sha256_512bit(hashes[4], hashes[5]);
-	Hash h78 = sha256_512bit(hashes[6], hashes[7]);
+	/*
+	 * A tree of 10 hashes will look like this:
+	 *
+	 *   ROOT
+	 *   |- h0123h45hh67
+	 *   |  |- h0123h45
+	 *   |  |  |- h0123
+	 *   |  |  |  |- h01
+	 *   |  |  |  |  |- h0
+	 *   |  |  |  |  \- h1
+	 *   |  |  |  \- h23
+	 *   |  |  |     |- h2
+	 *   |  |  |     \- h3
+	 *   |  |  \- hh45
+	 *   |  |     \- h45
+	 *   |  |        |- h4
+	 *   |  |        \- h5
+	 *   |  \- hhh67
+	 *   |     \- hh67
+	 *   |        \- h67
+	 *   |           |- h6
+	 *   |           \- h7
+	 *   |- hhhh89
+	 *      \- hhh89
+	 *         \- hh89
+	 *            \- h89
+	 *               |- h8
+	 *               \- h9
+	 */
 
-	Hash h1234 = sha256_512bit(h12, h34);
-	Hash h5678 = sha256_512bit(h56, h78);
+	Hash h01 = sha256_512bit(hashes[0], hashes[1]);
+	Hash h23 = sha256_512bit(hashes[2], hashes[3]);
+	Hash h45 = sha256_512bit(hashes[4], hashes[5]);
+	Hash h67 = sha256_512bit(hashes[6], hashes[7]);
+	Hash h89 = sha256_512bit(hashes[8], hashes[9]);
 
-	Hash root = sha256_512bit(h1234, h5678);
+	Hash h0123 = sha256_512bit(h01, h23);
+	Hash hh45  = sha256_256bit(h45);
+	Hash hh67  = sha256_256bit(h67);
+	Hash hh89  = sha256_256bit(h89);
+
+	Hash h0123h45 = sha256_512bit(h0123, h45);
+	Hash hhh67 = sha256_256bit(hh67);
+	Hash hhh89 = sha256_256bit(hh89);
+
+	Hash h0123h45hh67 = sha256_512bit(h0123h45, hhh67);
+	Hash hhhh89       = sha256_256bit(hhh89);
+
+	Hash root = sha256_512bit(h0123h45hh67, hhhh89);
+
 	return root;
 }
 
