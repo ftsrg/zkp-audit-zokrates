@@ -43,7 +43,12 @@ export interface Arguments {
  * Generate audit input data for the merkle audit type.
  */
 export function generate (
-  { data, addresses, transactionsPerBlock, blockIndex }: Arguments
+  {
+    data,
+    addresses,
+    transactionsPerBlock,
+    blockIndex
+  }: Arguments
 ): Output {
   const inputBlock: IBlock | undefined = data.blocks[blockIndex]
   if (inputBlock === undefined) {
@@ -53,7 +58,11 @@ export function generate (
     )
   }
   const [txs, _txCount]: [Transaction[], number] =
-    transformTransactions(inputBlock, transactionsPerBlock, addresses)
+    transformTransactions(
+      inputBlock,
+      transactionsPerBlock,
+      addresses
+    )
 
   const root: SplitHex = calculateMerkleTreeRoot(txs)
 

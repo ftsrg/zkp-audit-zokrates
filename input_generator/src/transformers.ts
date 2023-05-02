@@ -12,17 +12,20 @@ import {
   Hash,
   PublicBlock as OPublicBlock,
   Transaction as OTransaction,
-  Whitelist as OWhitelist
+  Whitelist as OWhitelist,
+  ZoKNumber
 } from './schema-out'
 import {
   dummyAddress,
   getDummyBlock,
+  getDummyTransaction,
   zeroHash,
   zeroSplitZoKNumber
 } from './data'
 import {
   PadKind,
   padToLength,
+  range,
   splitEvery8Chars
 } from './util-generic'
 import {
@@ -100,6 +103,7 @@ export function transformBlocks (
       prevHash,
       calculateMerkleTreeRoot(txs)
     )
+
     blks.push(blk)
   }
 
@@ -129,7 +133,8 @@ export function transformTransactions (
    * mapping account numbers to addresses and formatting numbers as
    * required by ZoKrates
    */
-  const txs: OTransaction[] = data.map((t: ITransaction) => {
+  const txs: OTransaction[] = data.map((t: ITransaction, i: number) => {
+    const index: ZoKNumber = numberToZoKNumber(i)
     const source: OAccount = mustGetAddress(
       addresses,
       t.source,
@@ -142,7 +147,7 @@ export function transformTransactions (
     )
     const amount = numberToSplitZoKNumber(t.amount)
 
-    return ({ source, destination, amount })
+    return ({ index, source, destination, amount })
   })
 
   /*
@@ -153,11 +158,11 @@ export function transformTransactions (
     padToLength({
       array: txs,
       length: totalTransactionsPerBlock,
-      padWith: {
-        source: dummyAddress,
-        destination: dummyAddress,
-        amount: zeroSplitZoKNumber
-      },
+      padWith:
+        range(
+          totalTransactionsPerBlock,
+          txs.length
+        ).map((i: number) => getDummyTransaction(i)),
       padKind: PadKind.AFTER
     }),
     txs.length
