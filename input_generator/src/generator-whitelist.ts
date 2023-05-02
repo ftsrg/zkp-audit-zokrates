@@ -11,7 +11,7 @@ import {
   PublicBlock,
   Whitelist
 } from './schema-out'
-import { numberToZoKNumber } from './util-zokrates'
+import { ZoKNumber } from './ZoKNumber'
 
 /**
  * The result of an input generation for the whitelist audit program.
@@ -88,8 +88,8 @@ export function generate (
   return [
     outBlocks,
     transformBlocksToPublicBlocks(outBlocks),
-    numberToZoKNumber(blockCount),
+    new ZoKNumber(blockCount).toString(),
     whitelist,
-    numberToZoKNumber(whitelistCount)
+    new ZoKNumber(whitelistCount).toString()
   ]
 }

@@ -13,14 +13,13 @@ import {
   PublicBlock as OPublicBlock,
   Transaction as OTransaction,
   Whitelist as OWhitelist,
-  ZoKNumber
+  ZoKNumber as OZoKNumber
 } from './schema-out'
 import {
   dummyAddress,
   getDummyBlock,
   getDummyTransaction,
-  zeroHash,
-  zeroSplitZoKNumber
+  zeroHash
 } from './data'
 import {
   PadKind,
@@ -33,10 +32,7 @@ import {
   calculateNextBlockHash,
   hashTransaction
 } from './util-hashing'
-import {
-  numberToSplitZoKNumber,
-  numberToZoKNumber
-} from './util-zokrates'
+import { ZoKNumber } from './ZoKNumber'
 
 /**
  * Transform input data containing account balances to ZoKrates-parsable
@@ -56,7 +52,7 @@ export function transformBalances (
       addresses, parseInt(acc),
       `setting balance of ${acc} to ${balNum}`
     )
-    bals.push([addr, numberToSplitZoKNumber(balNum)])
+    bals.push([addr, new ZoKNumber(balNum).split()])
   }
 
   /* Return balances array padded with dummy elements */
@@ -64,7 +60,7 @@ export function transformBalances (
     padToLength({
       array: bals,
       length: totalAccounts,
-      padWith: [dummyAddress, zeroSplitZoKNumber],
+      padWith: [dummyAddress, ZoKNumber.ZERO.split()],
       padKind: PadKind.AFTER
     }),
     bals.length
@@ -96,7 +92,7 @@ export function transformBlocks (
     const blk: OBlock = {
       prevHash,
       transactions: txs,
-      transactionCount: numberToZoKNumber(txCount)
+      transactionCount: new ZoKNumber(txCount).toString()
     }
 
     prevHash = calculateNextBlockHash(
@@ -134,7 +130,7 @@ export function transformTransactions (
    * required by ZoKrates
    */
   const txs: OTransaction[] = data.map((t: ITransaction, i: number) => {
-    const index: ZoKNumber = numberToZoKNumber(i)
+    const index: OZoKNumber = new ZoKNumber(i).toString()
     const source: OAccount = mustGetAddress(
       addresses,
       t.source,
@@ -145,7 +141,7 @@ export function transformTransactions (
       t.destination,
       `processing transaction ${txPrettyFormat(t)}`
     )
-    const amount = numberToSplitZoKNumber(t.amount)
+    const amount = new ZoKNumber(t.amount).split()
 
     return ({ index, source, destination, amount })
   })
