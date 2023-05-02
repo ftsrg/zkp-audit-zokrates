@@ -1,5 +1,9 @@
 import fs from 'fs'
-import { prefixAllWith0x, splitEvery8Chars } from './util-generic'
+import {
+  prefixAllWith0x,
+  range,
+  splitEvery8Chars
+} from './util-generic'
 import {
   numberToSplitZoKNumber,
   numberToZoKNumber
@@ -26,10 +30,16 @@ export const zeroSplitZoKNumber = numberToSplitZoKNumber(0)
 export const zeroHash: Hash = Array(8).fill('0')
 export const zeroAccount: Account = Array(5).fill('0')
 
-const dummyTransaction: Transaction = {
-  source: zeroAccount,
-  destination: zeroAccount,
-  amount: zeroSplitZoKNumber
+/**
+ * Generate a dummy (empty) transaction
+ */
+export function getDummyTransaction (index: number): Transaction {
+  return {
+      index: numberToZoKNumber(index),
+      source: zeroAccount,
+      destination: zeroAccount,
+      amount: zeroSplitZoKNumber
+  }
 }
 
 /**
@@ -38,7 +48,9 @@ const dummyTransaction: Transaction = {
 export function getDummyBlock (transactionsPerBlock: number): Block {
   return {
     prevHash: zeroHash,
-    transactions: Array(transactionsPerBlock).fill(dummyTransaction),
+    transactions:
+      range(transactionsPerBlock)
+        .map((i: number) => getDummyTransaction(i)),
     transactionCount: zeroZoKNumber
   }
 }

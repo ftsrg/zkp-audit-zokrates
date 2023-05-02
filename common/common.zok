@@ -6,6 +6,7 @@ type Hash = u32[8];     /* 256 bits for SHA256 */
 type AccountBalance = (Account, Balance);
 
 struct Transaction {
+	u32             index;
 	Account         source;
 	Account         destination;
 	Balance         amount;
@@ -26,7 +27,7 @@ struct PublicBlock<M> {
 def hash_transaction(Transaction t) -> Hash {
 	return sha256_1024bit( \
 	    [0; 8], \
-	    [0, 0, 0, 0, 0, 0, t.source[0], t.source[1]], \
+	    [0, 0, 0, 0, 0, t.index, t.source[0], t.source[1]], \
 	    [
 		t.source[2],
 		t.source[3],

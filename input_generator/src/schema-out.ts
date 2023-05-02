@@ -58,6 +58,8 @@ export interface PublicBlock {
  * Represents a single transaction.
  */
 export interface Transaction {
+  /** Index of the transaction within the block (starting at 0) */
+  index: ZoKNumber
   /** The sending party */
   source: Account
   /** The receiving party */

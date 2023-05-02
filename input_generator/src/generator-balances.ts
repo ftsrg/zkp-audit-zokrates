@@ -9,7 +9,7 @@ import {
   Balance,
   Block,
   Count,
-  PublicBlock,
+  PublicBlock
 } from './schema-out'
 import { numberToZoKNumber } from './util-zokrates'
 
@@ -63,7 +63,13 @@ export interface Arguments {
  * Generate audit input data for the balances audit type
  */
 export function generate (
-  { data, addresses, blocks, transactionsPerBlock, accounts }: Arguments
+  {
+    data,
+    addresses,
+    blocks,
+    transactionsPerBlock,
+    accounts
+  }: Arguments
 ): Output {
   const [bals, _balCount]: [Balance[], number] =
     transformBalances(data.balances, accounts, addresses)
@@ -73,7 +79,8 @@ export function generate (
       data.blocks,
       addresses,
       blocks,
-      transactionsPerBlock)
+      transactionsPerBlock
+    )
 
   return [
     bals,
