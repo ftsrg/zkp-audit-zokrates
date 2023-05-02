@@ -48,10 +48,10 @@ export function getAddresses (file: string): Account[] {
  */
 export function getDummyTransaction (index: number): Transaction {
   return {
-      index: new ZoKNumber(index).toString(),
-      source: zeroAccount,
-      destination: zeroAccount,
-      amount: ZoKNumber.ZERO.split()
+    index: new ZoKNumber(index).toString(),
+    source: zeroAccount,
+    destination: zeroAccount,
+    amount: ZoKNumber.ZERO.split()
   }
 }
 
