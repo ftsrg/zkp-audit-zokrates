@@ -52,3 +52,10 @@ export type Whitelist = Account[]
  * Accounts, represented by simple numbers.
  */
 export type Account = number
+
+/**
+ * Pretty-format a transaction.
+ */
+export function prettyFormat (tx: Transaction): string {
+  return `${tx.source} --[${tx.amount}]--> ${tx.destination}`
+}
