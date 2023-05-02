@@ -1,8 +1,9 @@
 import { getAddresses } from './data'
 import { AuditTypes, generate } from './generator'
-import { parse } from './input'
+import { parse, validate } from './input'
 import {
   command,
+  flag,
   number,
   oneOf,
   option,
@@ -58,6 +59,10 @@ const app = command({
       short: 'j',
       defaultValue: () => -1
     }),
+    validateOnly: flag({
+      long: 'validate-only',
+      short: 'W'
+    }),
     type: positional({
       displayName: 'audit type',
       type: oneOf(AuditTypes)
@@ -70,9 +75,16 @@ const app = command({
     blocks,
     transactions,
     accounts,
+    validateOnly,
     whitelist,
     index
   }) => {
+    if (validateOnly) {
+      const result: boolean = validate(inputFile ?? stdin, true)
+      console.log(`\n[${result ? 'OK' : 'FAIL'}]`)
+      process.exit(result ? 0 : 1)
+    }
+
     if (type === 'merkle' && index === -1) {
       throw new Error(
         'The block index option (-j) must be specified when' +

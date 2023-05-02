@@ -3,7 +3,8 @@ import {
   Balances as IBalances,
   Block as IBlock,
   Transaction as ITransaction,
-  Whitelist as IWhitelist
+  Whitelist as IWhitelist,
+  prettyFormat
 } from './schema-in'
 import {
   Account as OAccount,
@@ -134,12 +135,12 @@ export function transformTransactions (
     const source: OAccount = mustGetAddress(
       addresses,
       t.source,
-      `processing transaction ${txPrettyFormat(t)}`
+      `processing transaction ${prettyFormat(t)}`
     )
     const destination: OAccount = mustGetAddress(
       addresses,
       t.destination,
-      `processing transaction ${txPrettyFormat(t)}`
+      `processing transaction ${prettyFormat(t)}`
     )
     const amount = new ZoKNumber(t.amount).split()
 
@@ -229,8 +230,4 @@ function mustGetAddress (
   }
 
   return addr
-}
-
-function txPrettyFormat (tx: ITransaction): string {
-  return `${tx.source} --[${tx.amount}]--> ${tx.destination}`
 }
