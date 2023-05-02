@@ -11,24 +11,50 @@ import {
 import { Account, Block, Hash, Transaction } from './schema-out'
 
 const dummyAddressString = '0000000000000000000000000000000000000000'
+const empty32BitHexadecimal = '0x00000000'
 
-function splitAddress (a: string): Account {
-  return prefixAllWith0x(splitEvery8Chars(a))
-}
-
+/**
+ * An empty address to be used in dummy/padding transactions.
+ */
 export const dummyAddress: Account = splitAddress(dummyAddressString)
 
+/**
+ * The ZoKNumber of 0.
+ */
+export const zeroZoKNumber = numberToZoKNumber(0)
+
+/**
+ * The SplitZoKNumber of 0.
+ */
+export const zeroSplitZoKNumber = numberToSplitZoKNumber(0)
+
+/**
+ * An empty/zeroed hash value to be used in dummy/padding blocks.
+ *
+ * Note that the value of each u32[8] element cannot simply be '0'
+ * because ZoKrates will not hash the transaction as expected in that
+ * case.
+ */
+export const zeroHash: Hash = Array(8).fill(empty32BitHexadecimal)
+
+/**
+ * An empty/zeroed account identifier to be used in dummy/padding
+ * transactions.
+ *
+ * Note that the value of each u32[8] element cannot simply be '0'
+ * because ZoKrates will not hash the transaction as expected in that
+ * case.
+ */
+export const zeroAccount: Account = Array(5).fill(empty32BitHexadecimal)
+
+/**
+ * Read ethereum-style addresses from a file.
+ */
 export function getAddresses (file: string): Account[] {
   const addressStrings: string[] =
     JSON.parse(fs.readFileSync(file, 'utf8'))
   return addressStrings.map(a => splitAddress(a))
 }
-
-export const zeroZoKNumber = numberToZoKNumber(0)
-export const zeroSplitZoKNumber = numberToSplitZoKNumber(0)
-
-export const zeroHash: Hash = Array(8).fill('0')
-export const zeroAccount: Account = Array(5).fill('0')
 
 /**
  * Generate a dummy (empty) transaction
@@ -53,4 +79,8 @@ export function getDummyBlock (transactionsPerBlock: number): Block {
         .map((i: number) => getDummyTransaction(i)),
     transactionCount: zeroZoKNumber
   }
+}
+
+function splitAddress (a: string): Account {
+  return prefixAllWith0x(splitEvery8Chars(a))
 }
