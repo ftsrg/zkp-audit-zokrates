@@ -11,7 +11,7 @@ import {
   Count,
   PublicBlock
 } from './schema-out'
-import { numberToZoKNumber } from './util-zokrates'
+import { ZoKNumber } from './ZoKNumber'
 
 /**
  * The result of an input generation for the balances audit program.
@@ -86,6 +86,6 @@ export function generate (
     bals,
     outBlocks,
     transformBlocksToPublicBlocks(outBlocks),
-    numberToZoKNumber(blockCount)
+    new ZoKNumber(blockCount).toString()
   ]
 }

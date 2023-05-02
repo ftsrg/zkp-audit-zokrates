@@ -4,11 +4,8 @@ import {
   range,
   splitEvery8Chars
 } from './util-generic'
-import {
-  numberToSplitZoKNumber,
-  numberToZoKNumber
-} from './util-zokrates'
 import { Account, Block, Hash, Transaction } from './schema-out'
+import { ZoKNumber } from './ZoKNumber'
 
 const dummyAddressString = '0000000000000000000000000000000000000000'
 const empty32BitHexadecimal = '0x00000000'
@@ -17,16 +14,6 @@ const empty32BitHexadecimal = '0x00000000'
  * An empty address to be used in dummy/padding transactions.
  */
 export const dummyAddress: Account = splitAddress(dummyAddressString)
-
-/**
- * The ZoKNumber of 0.
- */
-export const zeroZoKNumber = numberToZoKNumber(0)
-
-/**
- * The SplitZoKNumber of 0.
- */
-export const zeroSplitZoKNumber = numberToSplitZoKNumber(0)
 
 /**
  * An empty/zeroed hash value to be used in dummy/padding blocks.
@@ -61,10 +48,10 @@ export function getAddresses (file: string): Account[] {
  */
 export function getDummyTransaction (index: number): Transaction {
   return {
-      index: numberToZoKNumber(index),
+      index: new ZoKNumber(index).toString(),
       source: zeroAccount,
       destination: zeroAccount,
-      amount: zeroSplitZoKNumber
+      amount: ZoKNumber.ZERO.split()
   }
 }
 
@@ -77,7 +64,7 @@ export function getDummyBlock (transactionsPerBlock: number): Block {
     transactions:
       range(transactionsPerBlock)
         .map((i: number) => getDummyTransaction(i)),
-    transactionCount: zeroZoKNumber
+    transactionCount: ZoKNumber.ZERO.toString()
   }
 }
 
