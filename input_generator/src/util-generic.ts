@@ -1,5 +1,5 @@
 /**
- * Arguments required by the padToLenght function.
+ * Arguments required by the {@link padToLength} function.
  */
 export interface PadToLengthArgs {
   /** The array of actual elements. */
@@ -7,7 +7,13 @@ export interface PadToLengthArgs {
   /** The lenght to which to pad the array. */
   length: number
   /** The dummy element with which padding should be done. */
-  padWith: any | any[]
+  padWith: any
+  /**
+   * Whether `padWith` is an array.
+   *
+   * @see {@link padToLength}
+   */
+  padWithIsArray?: boolean
   /** Whether to pad before or after the actual array. */
   padKind: PadKind
 }
@@ -109,11 +115,12 @@ export function padToLength ({
   array,
   length,
   padWith,
+  padWithIsArray = false,
   padKind
 }: PadToLengthArgs): any[] {
   const toFill: number = length - array.length
   let padding: any[]
-  if (Array.isArray(padWith)) {
+  if (padWithIsArray) {
     const timesItFits: number = Math.floor(toFill / padWith.length)
     const remainingLength: number = toFill % padWith.length
     padding = [

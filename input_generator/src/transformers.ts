@@ -195,6 +195,7 @@ export function transformTransactions (
           totalTransactionsPerBlock,
           txs.length
         ).map((i: number) => getDummyTransaction(i)),
+      padWithIsArray: true,
       padKind: PadKind.AFTER
     }),
     txs.length
