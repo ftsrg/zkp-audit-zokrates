@@ -9,6 +9,7 @@ import { Output as MerkleOutput } from './generator-merkle'
 /**
  * The generic result of an input generation.
  *
+ * @remarks
  * Will match the output schema of one of the generators.
  */
 export type Output = BalancesOutput | WhitelistOutput | MerkleOutput
@@ -25,13 +26,16 @@ export type { Output as MerkleOutput } from './generator-merkle'
  * Represents a block in the ledger.
  */
 export interface Block {
-  /** The hash of the header of the previous block */
+  /** The hash of the header of the previous block. */
   prevHash: Hash
-  /** The transactions inside this block, including dummy ones */
+  /** The transactions inside this block, including dummy ones. */
   transactions: Transaction[]
   /**
-  * The actual number of transactions (should be the lenght of the
-  * transactions field minus the number of padding/dummy transactions)
+  * The actual number of transactions.
+  *
+  * @remarks
+  * Should be the lenght of the `transactions` field minus the number of
+  * padding/dummy transactions.
   */
   transactionCount: ZoKNumber
 }
@@ -39,17 +43,21 @@ export interface Block {
 /**
  * The public data regarding a block in the ledger.
  *
+ * @remarks
  * Does not contain any plain text information about the block, only
  * hashes.  This is used for commitment to the real blockchain state.
  */
 export interface PublicBlock {
-  /** The hash of the header of the previous block */
+  /** The hash of the header of the previous block. */
   prevHash: Hash
-  /** The hashes of the transactions within this block */
+  /** The hashes of the transactions within this block. */
   hashes: Hash[]
   /**
-  * The actual number of transactions (should be the lenght of the
-  * transactions field minus the number of padding/dummy transactions)
+  * The actual number of transactions.
+  *
+  * @remarks
+  * Should be the lenght of the `transactions` field minus the number of
+  * padding/dummy transactions.
   */
   transactionCount: ZoKNumber
 }
@@ -58,15 +66,20 @@ export interface PublicBlock {
  * Represents a single transaction.
  */
 export interface Transaction {
-  /** Index of the transaction within the block (starting at 0) */
+  /*
+   * Index of the transaction within the block.
+   *
+   * @remarks
+   * Indexing starts at zero.
+   */
   index: ZoKNumber
-  /** The sending party */
+  /** The sending party. */
   source: Account
-  /** The receiving party */
+  /** The receiving party. */
   destination: Account
   /**
-   * The amount of funds that were transferred from the source to the
-   * destination address
+   * The amount of funds that were transferred from the `source` to the
+   * `destination` address.
    */
   amount: SplitZoKNumber
 }
@@ -77,7 +90,7 @@ export interface Transaction {
 export type Balance = [Account, SplitZoKNumber]
 
 /**
- * Represents a whitelist of accounts, ie those that are allowed to
+ * Represents a whitelist of accounts; i.e., those that are allowed to
  * receive funds via transactions.
  */
 export type Whitelist = Account[]
@@ -98,7 +111,7 @@ export type ZoKNumber = string
 
 /**
  * A number that exceeds the maximum size that ZoKrates can handle and
- * is therefore represented as an array of ZoKNumbers.
+ * is therefore represented as an array of `ZoKNumber`s.
  */
 export type SplitZoKNumber = ZoKNumber[]
 
@@ -107,7 +120,7 @@ export type SplitZoKNumber = ZoKNumber[]
  * ---------------------------------------------------------------- */
 
 /**
- * A hash of something, eg the SHA256 hash of a block header.
+ * A hash of something; e.g., the SHA256 hash of a block header.
  */
 export type Hash = SplitHex
 
@@ -120,9 +133,10 @@ export type Count = ZoKNumber
 /**
  * A stringified hexadecimal number, split into several parts.
  *
- * Each part should be individually prefixed by a 0x prefix.  For
- * example, ['0xDEADBEEF', '0x12341234'] should be interpreted as the
- * hexadecimal number 0xDEADBEEF12341234, which is actually
- * 16045690981402808884 in decimal.
+ * @remarks
+ * Each part should be individually prefixed by a `0x` prefix.  For
+ * example, `['0xDEADBEEF', '0x12341234']` should be interpreted as the
+ * hexadecimal number `0xDEADBEEF12341234`, which is actually
+ * `16045690981402808884` in decimal.
  */
 export type SplitHex = string[]

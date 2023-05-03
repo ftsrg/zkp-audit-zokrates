@@ -16,6 +16,7 @@ import { ZoKNumber } from './ZoKNumber'
 /**
  * The result of an input generation for the balances audit program.
  *
+ * @remarks
  * The array elements in order:
  *   1. The initial balances of all the accounts that appear in the
  *      ledger.  This is either the balance at genesis or the balances
@@ -36,31 +37,42 @@ export type Output = [Balance[], Block[], PublicBlock[], Count]
  * program.
  */
 export interface Arguments {
-  /** The simplified ledger data structure */
+  /** The simplified ledger data structure. */
   data: Input
   /**
-   * The hexadecimal accounts map simple numeric account identifiers to
+   * The hexadecimal accounts to which simple numeric account
+   * identifiers should be mapped.
    */
   addresses: Account[]
   /**
    * The total number of blocks (including padding/dummy ones) the audit
-   * program expects (-> constant N_)
+   * program expects
+   *
+   * @see constant `N_` in the ZoKrates programs.
    */
   blocks: number
   /**
    * The total number of transactions (including padding/dummy ones) the
-   * audit program expects each block to have (-> constant M_)
+   * audit program expects each block to have.
+   *
+   * @see constant `M_` in the ZoKrates programs.
    */
   transactionsPerBlock: number
   /**
    * The total number of accounts (including padding/dummy ones) the
-   * audit program expects (-> constant B_)
+   * audit program expects.
+   *
+   * @see constant `B_` in the ZoKrates programs.
    */
   accounts: number
 }
 
 /**
- * Generate audit input data for the balances audit type
+ * Generate audit input data for the **balances** audit type.
+ *
+ * @param arguments - The {@link Arguments} passed by the user.
+ * @returns The output data structure that can be stringified as a JSON
+ *          and fed into the ZoKrates programs.
  */
 export function generate (
   {

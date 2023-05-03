@@ -3,6 +3,9 @@ import { Balances, Input, Transaction, prettyFormat } from './schema-in'
 
 /**
  * Parse an input file.
+ *
+ * @param inputFile - The file to read and parse
+ * @returns The input data structure obtained from `inputFile`
  */
 export function parse (inputFile: string | number): Input {
   return JSON.parse(fs.readFileSync(inputFile, 'utf8')) as Input
@@ -11,11 +14,16 @@ export function parse (inputFile: string | number): Input {
 /**
  * Validate the contents of an input file.
  *
+ * @remarks
  * This checks whether an input file is actually correct without having
  * to run the ZoKrates programs on the transformed version of it.  It
  * verifies that in all transactions...
  *  a) the source has sufficient balance
  *  b) the sender is whitelisted
+ *
+ * @param inputFile - The file to read and parse
+ * @param verbose - Whether to print additional debugging information
+ * @returns `true` if `inputFile` passes validation; `false` otherwise
  */
 export function validate (
   inputFile: string | number,

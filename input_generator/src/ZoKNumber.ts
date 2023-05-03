@@ -11,9 +11,6 @@ import {
 
 /**
  * Represents a number as understood by ZoKrates.
- *
- * Yes, the fact that this inherits from String is a hack, but it makes
- * its usage much easier.
  */
 export class ZoKNumber {
   private static readonly LENGTH = 8
@@ -26,15 +23,21 @@ export class ZoKNumber {
 
   /**
    * Create a new ZoKNumber from any actual number.
+   *
+   * @param n - The original number
+   * @returns The {@link ZoKNumber} made from `n`
    */
   constructor (n: number) {
     this.num = n
   }
 
   /**
-    * Convert this into a 8x32 (= 256) bit number format consumable by
-    * ZoKrates (an 8-long array of strings)
-    */
+   * Convert this into a 8x32 (= 256) bit number format consumable by
+   * ZoKrates (an 8-long array of strings).
+   *
+   * @returns The number represented by `this` {@link ZoKNumber} but
+   *          split into an 8-long array.
+   */
   public split (): SplitZoKNumber {
     return padToLength({
       array: splitEvery8Chars(reverseString(this.num.toString(16)))
@@ -50,6 +53,8 @@ export class ZoKNumber {
   /**
    * Get the string representation of this number (a string, as ZoKrates
    * expects).
+   *
+   * @return This {@link ZoKNumber} as ZoKrates expects it
    */
   public toString (): ZoKNumberType {
     return this.num.toString()

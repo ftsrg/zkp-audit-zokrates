@@ -18,6 +18,7 @@ export const dummyAddress: Account = splitAddress(dummyAddressString)
 /**
  * An empty/zeroed hash value to be used in dummy/padding blocks.
  *
+ * @remarks
  * Note that the value of each u32[8] element cannot simply be '0'
  * because ZoKrates will not hash the transaction as expected in that
  * case.
@@ -28,6 +29,7 @@ export const zeroHash: Hash = Array(8).fill(empty32BitHexadecimal)
  * An empty/zeroed account identifier to be used in dummy/padding
  * transactions.
  *
+ * @remarks
  * Note that the value of each u32[8] element cannot simply be '0'
  * because ZoKrates will not hash the transaction as expected in that
  * case.
@@ -36,6 +38,9 @@ export const zeroAccount: Account = Array(5).fill(empty32BitHexadecimal)
 
 /**
  * Read ethereum-style addresses from a file.
+ *
+ * @param file - The file to read the addresses from
+ * @returns The list of accounts read from `file`
  */
 export function getAddresses (file: string): Account[] {
   const addressStrings: string[] =
@@ -44,7 +49,18 @@ export function getAddresses (file: string): Account[] {
 }
 
 /**
- * Generate a dummy (empty) transaction
+ * Generate a dummy (empty) transaction.
+ *
+ * @remarks
+ * Even dummy transactions have indices to ensure every leaf in the
+ * Merkle-tree built from transactions is unique.  Hence the `index`
+ * parameter.
+ *
+ * @see {@link getDummyBlock} for the function that generates an entire
+ * dummy _block._
+ *
+ * @param index - The index field to use in the dummy transaction
+ * @returns The dummy transaction
  */
 export function getDummyTransaction (index: number): Transaction {
   return {
@@ -56,7 +72,14 @@ export function getDummyTransaction (index: number): Transaction {
 }
 
 /**
- * Generate a dummy (empty) block
+ * Generate a dummy (empty) block.
+ *
+ * @see {@link getDummyTransaction} for how dummy transactions are added
+ * to the block.
+ *
+ * @param transactionsPerBlock - How many (dummy) transactions there
+ *                               should be within the block
+ * @returns The dummy block
  */
 export function getDummyBlock (transactionsPerBlock: number): Block {
   return {

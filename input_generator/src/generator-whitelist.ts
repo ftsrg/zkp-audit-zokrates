@@ -16,6 +16,7 @@ import { ZoKNumber } from './ZoKNumber'
 /**
  * The result of an input generation for the whitelist audit program.
  *
+ * @remarks
  * The array elements in order:
  *   1. The sequence of blocks under audit, padded with dummy block data
  *      at the end.
@@ -39,31 +40,42 @@ export type Output = [Block[], PublicBlock[], Count, Whitelist, Count]
  * program.
  */
 export interface Arguments {
-  /** The simplified ledger data structure */
+  /** The simplified ledger data structure. */
   data: Input
   /**
-   * The hexadecimal accounts map simple numeric account identifiers to
+   * The hexadecimal accounts to which simple numeric account
+   * identifiers should be mapped.
    */
   addresses: Account[]
   /**
    * The total number of blocks (including padding/dummy ones) the audit
-   * program expects (-> constant N_)
+   * program expects
+   *
+   * @see constant `N_` in the ZoKrates programs.
    */
   blocks: number
   /**
    * The total number of transactions (including padding/dummy ones) the
-   * audit program expects each block to have (-> constant M_)
+   * audit program expects each block to have.
+   *
+   * @see constant `M_` in the ZoKrates programs.
    */
   transactionsPerBlock: number
   /**
    * The total whitelist length (including padding/dummy accounts) the
-   * audit program expects (-> constant W_)
+   * audit program expects.
+   *
+   * @see constant `W_` in the ZoKrates programs.
    */
   whitelistAccounts: number
 }
 
 /**
- * Generate audit input data for the whitelist audit type
+ * Generate audit input data for the **whitelist** audit type.
+ *
+ * @param arguments - The {@link Arguments} passed by the user.
+ * @returns The output data structure that can be stringified as a JSON
+ *          and fed into the ZoKrates programs.
  */
 export function generate (
   {
