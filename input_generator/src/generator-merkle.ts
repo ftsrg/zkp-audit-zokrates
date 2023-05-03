@@ -6,6 +6,7 @@ import { calculateMerkleTreeRoot } from './util-hashing'
 /**
  * The result of an input generation for the merkle audit program.
  *
+ * @remarks
  * The array elements in order:
  *   1. The list of transactions under audit, padded with dummy
  *      transaction data at the end.  The next element should be equal
@@ -20,27 +21,36 @@ export type Output = [Transaction[], Hash]
  * program.
  */
 export interface Arguments {
-  /** The simplified ledger data structure */
+  /** The simplified ledger data structure. */
   data: Input
   /**
-   * The hexadecimal accounts map simple numeric account identifiers to
+   * The hexadecimal accounts to which simple numeric account
+   * identifiers should be mapped.
    */
   addresses: Account[]
   /**
    * The total number of transactions (including padding/dummy ones) the
-   * audit program expects each block to have (-> constant M_)
+   * audit program expects each block to have.
+   *
+   * @see constant `M_` in the ZoKrates programs.
    */
   transactionsPerBlock: number
   /**
    * The index of the block to consider from the ones provided in the
-   * data parameter.  The merkle audit program can only handle a single
-   * block at a time.
+   * `data` field.
+   *
+   * @remark
+   * The merkle audit program can only handle a single block at a time.
    */
   blockIndex: number
 }
 
 /**
- * Generate audit input data for the merkle audit type.
+ * Generate audit input data for the **merkle** audit type.
+ *
+ * @param arguments - The {@link Arguments} passed by the user.
+ * @returns The output data structure that can be stringified as a JSON
+ *          and fed into the ZoKrates programs.
  */
 export function generate (
   {
