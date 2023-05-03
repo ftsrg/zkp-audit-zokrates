@@ -45,7 +45,7 @@ const app = command({
       type: number,
       long: 'total-accounts',
       short: 'b',
-      defaultValue: () => 3
+      defaultValue: () => 10
     }),
     whitelist: option({
       type: number,

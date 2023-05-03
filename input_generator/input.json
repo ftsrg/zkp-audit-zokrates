@@ -1,18 +1,51 @@
 {
-  "balances": { "0": 10000, "1": 800, "2": 200 },
+  "balances": {
+    "0": 1000, "1": 500, "2": 200, "3": 200,
+    "4": 200, "5": 100, "6": 0, "7": 0
+  },
   "blocks": [
     [
       { "source": "0", "destination": "1", "amount": 100 },
-      { "source": "1", "destination": "2", "amount": 20 }
+      { "source": "1", "destination": "2", "amount": 20 },
+      { "source": "1", "destination": "5", "amount": 10 },
+      { "source": "3", "destination": "2", "amount": 20 },
+      { "source": "5", "destination": "1", "amount": 40 },
+      { "source": "0", "destination": "6", "amount": 100 }
     ],
     [
-      { "source": "1", "destination": "2", "amount": 10 },
-      { "source": "2", "destination": "1", "amount": 50 }
+      { "source": "1", "destination": "6", "amount": 20 },
+      { "source": "6", "destination": "4", "amount": 30 },
+      { "source": "3", "destination": "1", "amount": 10 },
+      { "source": "3", "destination": "2", "amount": 20 },
+      { "source": "3", "destination": "6", "amount": 100 }
     ],
     [
-      { "source": "2", "destination": "1", "amount": 3 },
-      { "source": "2", "destination": "1", "amount": 7 }
+      { "source": "3", "destination": "4", "amount": 10 },
+      { "source": "1", "destination": "2", "amount": 20 },
+      { "source": "4", "destination": "2", "amount": 20 },
+      { "source": "5", "destination": "2", "amount": 20 }
+    ],
+    [
+      { "source": "1", "destination": "3", "amount": 100 },
+      { "source": "1", "destination": "2", "amount": 40 },
+      { "source": "2", "destination": "3", "amount": 10 },
+      { "source": "3", "destination": "5", "amount": 20 },
+      { "source": "6", "destination": "4", "amount": 20 },
+      { "source": "0", "destination": "6", "amount": 200 },
+      { "source": "6", "destination": "2", "amount": 50 },
+      { "source": "6", "destination": "5", "amount": 50 }
+    ],
+    [
+      { "source": "0", "destination": "1", "amount": 100 },
+      { "source": "2", "destination": "4", "amount": 20 }
+    ],
+    [
+      { "source": "5", "destination": "3", "amount": 20 },
+      { "source": "4", "destination": "1", "amount": 40 },
+      { "source": "1", "destination": "5", "amount": 20 },
+      { "source": "3", "destination": "4", "amount": 40 },
+      { "source": "1", "destination": "5", "amount": 40 }
     ]
   ],
-  "whitelist": [ "1", "2" ]
+  "whitelist": [ "1", "2", "3", "4", "5", "6" ]
 }
