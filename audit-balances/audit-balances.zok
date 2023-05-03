@@ -80,7 +80,7 @@ def subtract_from_balance<B>( \
 
 const u32 N_ = 10;       /* number of blocks */
 const u32 M_ = 10;       /* number of transactions per block */
-const u32 B_ = 3;        /* number of accounts */
+const u32 B_ = 10;       /* number of accounts */
 
 def main( \
     private AccountBalance[B_] mut balances, \
