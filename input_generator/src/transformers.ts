@@ -25,6 +25,7 @@ import {
 import {
   PadKind,
   padToLength,
+  prefixAllWith0x,
   range,
   splitEvery8Chars
 } from './util-generic'
@@ -261,7 +262,7 @@ export function transformBlocksToPublicBlocks (
 
 function mapTransactionsToHashes (txs: OTransaction[]): Hash[] {
   return txs.map((t: OTransaction) =>
-    splitEvery8Chars(hashTransaction(t).toString()))
+    prefixAllWith0x(splitEvery8Chars(hashTransaction(t).toString())))
 }
 
 function mustGetAddress (
