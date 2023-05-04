@@ -117,11 +117,11 @@ def main( \
 			/* (3), (4) Balance changes described by tx */
 			balances = if (j < b.transactionCount) {
 				add_to_balance( \
-				    balances, t.source, t.amount)
+				    balances, t.destination, t.amount)
 			} else { balances };
 			balances = if (j < b.transactionCount) {
 				subtract_from_balance( \
-				    balances, t.destination, t.amount)
+				    balances, t.source, t.amount)
 			} else { balances };
 		}
 	}
