@@ -1,0 +1,12 @@
+total 41669452
+-rw-r--r-- 1 admin admin         839 May  5 09:18 Makefile
+-rw-r--r-- 1 admin admin        3555 May  5 21:05 abi.json
+-rw-r--r-- 1 admin admin        3559 May  5 09:18 audit-balances.zok
+-rw-r--r-- 1 admin admin       36211 May  5 09:18 input.json
+-rw-r--r-- 1 admin admin 24867105572 May  5 21:05 out
+-rw-r--r-- 1 admin admin  9423186732 May  5 21:05 out.r1cs
+-rw-r--r-- 1 admin admin   279129708 May  5 21:12 out.wtns
+-rw-r--r-- 1 admin admin       66636 May  5 21:16 proof.json
+-rw-r--r-- 1 admin admin  7750888112 May  5 21:09 proving.key
+-rw-r--r-- 1 admin admin      147551 May  5 21:09 verification.key
+-rw-r--r-- 1 admin admin   348912048 May  5 21:12 witness

@@ -1,0 +1,976 @@
+[[[ RUNNING MEASUREMENT 1 of BALANCES ]]]
+Compiling audit-balances.zok
+
+Compiled code written to 'out'
+Number of constraints: 8786945
+real 585.37
+user 448.57
+sys 28.64
+Performing setup...
+Verification key written to 'verification.key'
+Proving key written to 'proving.key'
+Setup completed
+real 275.10
+user 1170.56
+sys 19.55
+Computing witness...
+
+Witness: 
+[]
+
+Witness file written to 'witness'
+real 173.64
+user 169.93
+sys 3.70
+Generating proof...
+Proof written to 'proof.json'
+real 253.65
+user 698.00
+sys 17.27
+rm -f abi.json out out.r1cs out.wtns proof.json proving.key \
+    verification.key witness
+[[[ RUNNING MEASUREMENT 2 of BALANCES ]]]
+Compiling audit-balances.zok
+
+Compiled code written to 'out'
+Number of constraints: 8786945
+real 561.86
+user 446.59
+sys 30.37
+Performing setup...
+Verification key written to 'verification.key'
+Proving key written to 'proving.key'
+Setup completed
+real 275.98
+user 1169.91
+sys 19.95
+Computing witness...
+
+Witness: 
+[]
+
+Witness file written to 'witness'
+real 172.47
+user 168.96
+sys 3.50
+Generating proof...
+Proof written to 'proof.json'
+real 258.00
+user 702.59
+sys 16.98
+rm -f abi.json out out.r1cs out.wtns proof.json proving.key \
+    verification.key witness
+[[[ RUNNING MEASUREMENT 3 of BALANCES ]]]
+Compiling audit-balances.zok
+
+Compiled code written to 'out'
+Number of constraints: 8786945
+real 570.63
+user 445.58
+sys 31.06
+Performing setup...
+Verification key written to 'verification.key'
+Proving key written to 'proving.key'
+Setup completed
+real 272.57
+user 1169.01
+sys 20.07
+Computing witness...
+
+Witness: 
+[]
+
+Witness file written to 'witness'
+real 174.00
+user 170.34
+sys 3.65
+Generating proof...
+Proof written to 'proof.json'
+real 255.72
+user 696.41
+sys 17.51
+rm -f abi.json out out.r1cs out.wtns proof.json proving.key \
+    verification.key witness
+[[[ RUNNING MEASUREMENT 4 of BALANCES ]]]
+Compiling audit-balances.zok
+
+Compiled code written to 'out'
+Number of constraints: 8786945
+real 578.57
+user 445.01
+sys 30.24
+Performing setup...
+Verification key written to 'verification.key'
+Proving key written to 'proving.key'
+Setup completed
+real 274.60
+user 1167.27
+sys 19.50
+Computing witness...
+
+Witness: 
+[]
+
+Witness file written to 'witness'
+real 172.72
+user 169.23
+sys 3.47
+Generating proof...
+Proof written to 'proof.json'
+real 253.57
+user 694.29
+sys 16.97
+rm -f abi.json out out.r1cs out.wtns proof.json proving.key \
+    verification.key witness
+[[[ RUNNING MEASUREMENT 5 of BALANCES ]]]
+Compiling audit-balances.zok
+
+Compiled code written to 'out'
+Number of constraints: 8786945
+real 561.97
+user 448.74
+sys 30.69
+Performing setup...
+Verification key written to 'verification.key'
+Proving key written to 'proving.key'
+Setup completed
+real 273.06
+user 1166.64
+sys 20.05
+Computing witness...
+
+Witness: 
+[]
+
+Witness file written to 'witness'
+real 172.64
+user 169.15
+sys 3.49
+Generating proof...
+Proof written to 'proof.json'
+real 250.55
+user 695.26
+sys 16.90
+rm -f abi.json out out.r1cs out.wtns proof.json proving.key \
+    verification.key witness
+[[[ RUNNING MEASUREMENT 6 of BALANCES ]]]
+Compiling audit-balances.zok
+
+Compiled code written to 'out'
+Number of constraints: 8786945
+real 560.52
+user 445.16
+sys 30.95
+Performing setup...
+Verification key written to 'verification.key'
+Proving key written to 'proving.key'
+Setup completed
+real 273.97
+user 1166.63
+sys 20.13
+Computing witness...
+
+Witness: 
+[]
+
+Witness file written to 'witness'
+real 175.01
+user 171.63
+sys 3.37
+Generating proof...
+Proof written to 'proof.json'
+real 253.28
+user 696.93
+sys 17.23
+rm -f abi.json out out.r1cs out.wtns proof.json proving.key \
+    verification.key witness
+[[[ RUNNING MEASUREMENT 7 of BALANCES ]]]
+Compiling audit-balances.zok
+
+Compiled code written to 'out'
+Number of constraints: 8786945
+real 560.88
+user 448.24
+sys 30.59
+Performing setup...
+Verification key written to 'verification.key'
+Proving key written to 'proving.key'
+Setup completed
+real 273.08
+user 1164.53
+sys 19.85
+Computing witness...
+
+Witness: 
+[]
+
+Witness file written to 'witness'
+real 173.50
+user 170.03
+sys 3.45
+Generating proof...
+Proof written to 'proof.json'
+real 251.80
+user 695.24
+sys 17.11
+rm -f abi.json out out.r1cs out.wtns proof.json proving.key \
+    verification.key witness
+[[[ RUNNING MEASUREMENT 8 of BALANCES ]]]
+Compiling audit-balances.zok
+
+Compiled code written to 'out'
+Number of constraints: 8786945
+real 557.65
+user 446.23
+sys 30.43
+Performing setup...
+Verification key written to 'verification.key'
+Proving key written to 'proving.key'
+Setup completed
+real 272.18
+user 1164.27
+sys 19.26
+Computing witness...
+
+Witness: 
+[]
+
+Witness file written to 'witness'
+real 174.05
+user 170.52
+sys 3.53
+Generating proof...
+Proof written to 'proof.json'
+real 251.59
+user 695.92
+sys 17.42
+rm -f abi.json out out.r1cs out.wtns proof.json proving.key \
+    verification.key witness
+[[[ RUNNING MEASUREMENT 9 of BALANCES ]]]
+Compiling audit-balances.zok
+
+Compiled code written to 'out'
+Number of constraints: 8786945
+real 569.64
+user 444.02
+sys 30.29
+Performing setup...
+Verification key written to 'verification.key'
+Proving key written to 'proving.key'
+Setup completed
+real 272.58
+user 1165.42
+sys 19.58
+Computing witness...
+
+Witness: 
+[]
+
+Witness file written to 'witness'
+real 173.27
+user 169.74
+sys 3.52
+Generating proof...
+Proof written to 'proof.json'
+real 251.47
+user 694.97
+sys 17.00
+rm -f abi.json out out.r1cs out.wtns proof.json proving.key \
+    verification.key witness
+[[[ RUNNING MEASUREMENT 10 of BALANCES ]]]
+Compiling audit-balances.zok
+
+Compiled code written to 'out'
+Number of constraints: 8786945
+real 563.28
+user 448.53
+sys 30.39
+Performing setup...
+Verification key written to 'verification.key'
+Proving key written to 'proving.key'
+Setup completed
+real 273.28
+user 1169.54
+sys 19.29
+Computing witness...
+
+Witness: 
+[]
+
+Witness file written to 'witness'
+real 175.24
+user 171.61
+sys 3.62
+Generating proof...
+Proof written to 'proof.json'
+real 256.44
+user 703.26
+sys 17.27
+rm -f abi.json out out.r1cs out.wtns proof.json proving.key \
+    verification.key witness
+[[[ RUNNING MEASUREMENT 1 of WHITELIST ]]]
+Compiling audit-whitelist.zok
+
+Compiled code written to 'out'
+Number of constraints: 7407430
+real 532.21
+user 422.25
+sys 29.66
+Performing setup...
+Verification key written to 'verification.key'
+Proving key written to 'proving.key'
+Setup completed
+real 241.19
+user 852.48
+sys 16.83
+Computing witness...
+
+Witness: 
+[]
+
+Witness file written to 'witness'
+real 168.25
+user 164.87
+sys 3.37
+Generating proof...
+Proof written to 'proof.json'
+real 216.89
+user 455.13
+sys 13.94
+rm -f abi.json out out.r1cs out.wtns proof.json proving.key \
+    verification.key witness
+[[[ RUNNING MEASUREMENT 2 of WHITELIST ]]]
+Compiling audit-whitelist.zok
+
+Compiled code written to 'out'
+Number of constraints: 7407430
+real 545.13
+user 425.64
+sys 29.54
+Performing setup...
+Verification key written to 'verification.key'
+Proving key written to 'proving.key'
+Setup completed
+real 242.18
+user 851.57
+sys 16.65
+Computing witness...
+
+Witness: 
+[]
+
+Witness file written to 'witness'
+real 171.84
+user 168.30
+sys 3.53
+Generating proof...
+Proof written to 'proof.json'
+real 215.83
+user 452.89
+sys 13.83
+rm -f abi.json out out.r1cs out.wtns proof.json proving.key \
+    verification.key witness
+[[[ RUNNING MEASUREMENT 3 of WHITELIST ]]]
+Compiling audit-whitelist.zok
+
+Compiled code written to 'out'
+Number of constraints: 7407430
+real 531.91
+user 420.28
+sys 29.64
+Performing setup...
+Verification key written to 'verification.key'
+Proving key written to 'proving.key'
+Setup completed
+real 240.88
+user 851.51
+sys 16.48
+Computing witness...
+
+Witness: 
+[]
+
+Witness file written to 'witness'
+real 168.84
+user 165.45
+sys 3.39
+Generating proof...
+Proof written to 'proof.json'
+real 220.83
+user 460.82
+sys 13.97
+rm -f abi.json out out.r1cs out.wtns proof.json proving.key \
+    verification.key witness
+[[[ RUNNING MEASUREMENT 4 of WHITELIST ]]]
+Compiling audit-whitelist.zok
+
+Compiled code written to 'out'
+Number of constraints: 7407430
+real 544.83
+user 427.82
+sys 30.38
+Performing setup...
+Verification key written to 'verification.key'
+Proving key written to 'proving.key'
+Setup completed
+real 240.92
+user 855.84
+sys 17.15
+Computing witness...
+
+Witness: 
+[]
+
+Witness file written to 'witness'
+real 170.75
+user 167.26
+sys 3.47
+Generating proof...
+Proof written to 'proof.json'
+real 217.74
+user 456.20
+sys 13.94
+rm -f abi.json out out.r1cs out.wtns proof.json proving.key \
+    verification.key witness
+[[[ RUNNING MEASUREMENT 5 of WHITELIST ]]]
+Compiling audit-whitelist.zok
+
+Compiled code written to 'out'
+Number of constraints: 7407430
+real 535.48
+user 426.79
+sys 30.30
+Performing setup...
+Verification key written to 'verification.key'
+Proving key written to 'proving.key'
+Setup completed
+real 243.02
+user 856.13
+sys 17.03
+Computing witness...
+
+Witness: 
+[]
+
+Witness file written to 'witness'
+real 169.04
+user 165.70
+sys 3.33
+Generating proof...
+Proof written to 'proof.json'
+real 216.65
+user 455.13
+sys 13.75
+rm -f abi.json out out.r1cs out.wtns proof.json proving.key \
+    verification.key witness
+[[[ RUNNING MEASUREMENT 6 of WHITELIST ]]]
+Compiling audit-whitelist.zok
+
+Compiled code written to 'out'
+Number of constraints: 7407430
+real 539.13
+user 423.60
+sys 29.53
+Performing setup...
+Verification key written to 'verification.key'
+Proving key written to 'proving.key'
+Setup completed
+real 240.90
+user 853.51
+sys 17.15
+Computing witness...
+
+Witness: 
+[]
+
+Witness file written to 'witness'
+real 169.12
+user 165.62
+sys 3.50
+Generating proof...
+Proof written to 'proof.json'
+real 216.68
+user 454.72
+sys 13.81
+rm -f abi.json out out.r1cs out.wtns proof.json proving.key \
+    verification.key witness
+[[[ RUNNING MEASUREMENT 7 of WHITELIST ]]]
+Compiling audit-whitelist.zok
+
+Compiled code written to 'out'
+Number of constraints: 7407430
+real 531.34
+user 422.22
+sys 30.23
+Performing setup...
+Verification key written to 'verification.key'
+Proving key written to 'proving.key'
+Setup completed
+real 242.96
+user 855.27
+sys 16.65
+Computing witness...
+
+Witness: 
+[]
+
+Witness file written to 'witness'
+real 169.23
+user 165.72
+sys 3.50
+Generating proof...
+Proof written to 'proof.json'
+real 216.90
+user 455.18
+sys 13.92
+rm -f abi.json out out.r1cs out.wtns proof.json proving.key \
+    verification.key witness
+[[[ RUNNING MEASUREMENT 8 of WHITELIST ]]]
+Compiling audit-whitelist.zok
+
+Compiled code written to 'out'
+Number of constraints: 7407430
+real 545.20
+user 421.71
+sys 30.35
+Performing setup...
+Verification key written to 'verification.key'
+Proving key written to 'proving.key'
+Setup completed
+real 242.43
+user 853.19
+sys 16.87
+Computing witness...
+
+Witness: 
+[]
+
+Witness file written to 'witness'
+real 168.03
+user 164.55
+sys 3.46
+Generating proof...
+Proof written to 'proof.json'
+real 217.01
+user 454.82
+sys 14.17
+rm -f abi.json out out.r1cs out.wtns proof.json proving.key \
+    verification.key witness
+[[[ RUNNING MEASUREMENT 9 of WHITELIST ]]]
+Compiling audit-whitelist.zok
+
+Compiled code written to 'out'
+Number of constraints: 7407430
+real 532.77
+user 420.44
+sys 30.13
+Performing setup...
+Verification key written to 'verification.key'
+Proving key written to 'proving.key'
+Setup completed
+real 241.77
+user 853.09
+sys 16.39
+Computing witness...
+
+Witness: 
+[]
+
+Witness file written to 'witness'
+real 167.74
+user 164.59
+sys 3.13
+Generating proof...
+Proof written to 'proof.json'
+real 216.82
+user 453.87
+sys 13.96
+rm -f abi.json out out.r1cs out.wtns proof.json proving.key \
+    verification.key witness
+[[[ RUNNING MEASUREMENT 10 of WHITELIST ]]]
+Compiling audit-whitelist.zok
+
+Compiled code written to 'out'
+Number of constraints: 7407430
+real 540.97
+user 423.00
+sys 30.61
+Performing setup...
+Verification key written to 'verification.key'
+Proving key written to 'proving.key'
+Setup completed
+real 240.19
+user 848.75
+sys 16.35
+Computing witness...
+
+Witness: 
+[]
+
+Witness file written to 'witness'
+real 167.06
+user 163.83
+sys 3.21
+Generating proof...
+Proof written to 'proof.json'
+real 216.68
+user 454.01
+sys 13.80
+rm -f abi.json out out.r1cs out.wtns proof.json proving.key \
+    verification.key witness
+[[[ RUNNING MEASUREMENT 1 of MERKLE ]]]
+Compiling audit-merkle.zok
+
+Compiled code written to 'out'
+Number of constraints: 1311260
+real 796.94
+user 498.41
+sys 31.75
+Performing setup...
+Verification key written to 'verification.key'
+Proving key written to 'proving.key'
+Setup completed
+real 362.09
+user 405.13
+sys 14.29
+Computing witness...
+
+Witness: 
+[]
+
+Witness file written to 'witness'
+real 237.53
+user 232.79
+sys 4.73
+Generating proof...
+Proof written to 'proof.json'
+real 243.29
+user 308.51
+sys 11.81
+rm -f abi.json out out.r1cs out.wtns proof.json proving.key \
+    verification.key witness
+[[[ RUNNING MEASUREMENT 2 of MERKLE ]]]
+Compiling audit-merkle.zok
+
+Compiled code written to 'out'
+Number of constraints: 1311260
+real 813.91
+user 495.80
+sys 32.27
+Performing setup...
+Verification key written to 'verification.key'
+Proving key written to 'proving.key'
+Setup completed
+real 372.31
+user 410.40
+sys 14.50
+Computing witness...
+
+Witness: 
+[]
+
+Witness file written to 'witness'
+real 237.28
+user 232.63
+sys 4.64
+Generating proof...
+Proof written to 'proof.json'
+real 241.75
+user 307.00
+sys 11.86
+rm -f abi.json out out.r1cs out.wtns proof.json proving.key \
+    verification.key witness
+[[[ RUNNING MEASUREMENT 3 of MERKLE ]]]
+Compiling audit-merkle.zok
+
+Compiled code written to 'out'
+Number of constraints: 1311260
+real 795.36
+user 497.35
+sys 33.14
+Performing setup...
+Verification key written to 'verification.key'
+Proving key written to 'proving.key'
+Setup completed
+real 360.82
+user 404.78
+sys 14.67
+Computing witness...
+
+Witness: 
+[]
+
+Witness file written to 'witness'
+real 236.40
+user 231.53
+sys 4.85
+Generating proof...
+Proof written to 'proof.json'
+real 241.12
+user 306.78
+sys 11.53
+rm -f abi.json out out.r1cs out.wtns proof.json proving.key \
+    verification.key witness
+[[[ RUNNING MEASUREMENT 4 of MERKLE ]]]
+Compiling audit-merkle.zok
+
+Compiled code written to 'out'
+Number of constraints: 1311260
+real 809.46
+user 493.09
+sys 32.41
+Performing setup...
+Verification key written to 'verification.key'
+Proving key written to 'proving.key'
+Setup completed
+real 373.36
+user 414.46
+sys 13.87
+Computing witness...
+
+Witness: 
+[]
+
+Witness file written to 'witness'
+real 235.94
+user 231.27
+sys 4.66
+Generating proof...
+Proof written to 'proof.json'
+real 242.76
+user 307.94
+sys 11.68
+rm -f abi.json out out.r1cs out.wtns proof.json proving.key \
+    verification.key witness
+[[[ RUNNING MEASUREMENT 5 of MERKLE ]]]
+Compiling audit-merkle.zok
+
+Compiled code written to 'out'
+Number of constraints: 1311260
+real 808.63
+user 497.58
+sys 32.60
+Performing setup...
+Verification key written to 'verification.key'
+Proving key written to 'proving.key'
+Setup completed
+real 361.37
+user 404.95
+sys 14.56
+Computing witness...
+
+Witness: 
+[]
+
+Witness file written to 'witness'
+real 236.74
+user 231.86
+sys 4.87
+Generating proof...
+Proof written to 'proof.json'
+real 248.11
+user 313.88
+sys 11.32
+rm -f abi.json out out.r1cs out.wtns proof.json proving.key \
+    verification.key witness
+[[[ RUNNING MEASUREMENT 6 of MERKLE ]]]
+Compiling audit-merkle.zok
+
+Compiled code written to 'out'
+Number of constraints: 1311260
+real 809.50
+user 493.41
+sys 32.44
+Performing setup...
+Verification key written to 'verification.key'
+Proving key written to 'proving.key'
+Setup completed
+real 367.93
+user 413.61
+sys 14.49
+Computing witness...
+
+Witness: 
+[]
+
+Witness file written to 'witness'
+real 243.99
+user 239.44
+sys 4.53
+Generating proof...
+Proof written to 'proof.json'
+real 242.62
+user 308.05
+sys 11.47
+rm -f abi.json out out.r1cs out.wtns proof.json proving.key \
+    verification.key witness
+[[[ RUNNING MEASUREMENT 7 of MERKLE ]]]
+Compiling audit-merkle.zok
+
+Compiled code written to 'out'
+Number of constraints: 1311260
+real 808.29
+user 493.14
+sys 32.12
+Performing setup...
+Verification key written to 'verification.key'
+Proving key written to 'proving.key'
+Setup completed
+real 371.88
+user 407.88
+sys 14.23
+Computing witness...
+
+Witness: 
+[]
+
+Witness file written to 'witness'
+real 236.66
+user 231.65
+sys 5.00
+Generating proof...
+Proof written to 'proof.json'
+real 244.53
+user 310.14
+sys 11.37
+rm -f abi.json out out.r1cs out.wtns proof.json proving.key \
+    verification.key witness
+[[[ RUNNING MEASUREMENT 8 of MERKLE ]]]
+Compiling audit-merkle.zok
+
+Compiled code written to 'out'
+Number of constraints: 1311260
+real 816.33
+user 496.50
+sys 31.82
+Performing setup...
+Verification key written to 'verification.key'
+Proving key written to 'proving.key'
+Setup completed
+real 365.30
+user 404.41
+sys 13.85
+Computing witness...
+
+Witness: 
+[]
+
+Witness file written to 'witness'
+real 235.99
+user 231.16
+sys 4.82
+Generating proof...
+Proof written to 'proof.json'
+real 240.37
+user 305.46
+sys 11.68
+rm -f abi.json out out.r1cs out.wtns proof.json proving.key \
+    verification.key witness
+[[[ RUNNING MEASUREMENT 9 of MERKLE ]]]
+Compiling audit-merkle.zok
+
+Compiled code written to 'out'
+Number of constraints: 1311260
+real 792.98
+user 498.17
+sys 31.82
+Performing setup...
+Verification key written to 'verification.key'
+Proving key written to 'proving.key'
+Setup completed
+real 359.57
+user 405.39
+sys 14.30
+Computing witness...
+
+Witness: 
+[]
+
+Witness file written to 'witness'
+real 236.79
+user 232.30
+sys 4.48
+Generating proof...
+Proof written to 'proof.json'
+real 244.15
+user 310.08
+sys 11.30
+rm -f abi.json out out.r1cs out.wtns proof.json proving.key \
+    verification.key witness
+[[[ RUNNING MEASUREMENT 10 of MERKLE ]]]
+Compiling audit-merkle.zok
+
+Compiled code written to 'out'
+Number of constraints: 1311260
+real 817.96
+user 494.25
+sys 30.25
+Performing setup...
+Verification key written to 'verification.key'
+Proving key written to 'proving.key'
+Setup completed
+real 370.31
+user 402.00
+sys 13.48
+Computing witness...
+
+Witness: 
+[]
+
+Witness file written to 'witness'
+real 236.66
+user 232.06
+sys 4.59
+Generating proof...
+Proof written to 'proof.json'
+real 244.69
+user 309.65
+sys 11.19
+rm -f abi.json out out.r1cs out.wtns proof.json proving.key \
+    verification.key witness
+
+
+
+------------------------------------------------------------------------
+
+admin@ip-172-31-47-74:~/zkp-audit-zokrates/audit-balances$ ls -l
+total 41669452
+-rw-r--r-- 1 admin admin         839 May  5 09:18 Makefile
+-rw-r--r-- 1 admin admin        3555 May  5 21:05 abi.json
+-rw-r--r-- 1 admin admin        3559 May  5 09:18 audit-balances.zok
+-rw-r--r-- 1 admin admin       36211 May  5 09:18 input.json
+-rw-r--r-- 1 admin admin 24867105572 May  5 21:05 out
+-rw-r--r-- 1 admin admin  9423186732 May  5 21:05 out.r1cs
+-rw-r--r-- 1 admin admin   279129708 May  5 21:12 out.wtns
+-rw-r--r-- 1 admin admin       66636 May  5 21:16 proof.json
+-rw-r--r-- 1 admin admin  7750888112 May  5 21:09 proving.key
+-rw-r--r-- 1 admin admin      147551 May  5 21:09 verification.key
+-rw-r--r-- 1 admin admin   348912048 May  5 21:12 witness
+
+admin@ip-172-31-47-74:~/zkp-audit-zokrates/audit-whitelist$ ls -l
+total 38855920
+-rw-r--r-- 1 admin admin         841 May  5 09:18 Makefile
+-rw-r--r-- 1 admin admin        3324 May  5 21:27 abi.json
+-rw-r--r-- 1 admin admin        1604 May  5 09:18 audit-whitelist.zok
+-rw-r--r-- 1 admin admin       35842 May  5 09:18 input.json
+-rw-r--r-- 1 admin admin 24310346670 May  5 21:27 out
+-rw-r--r-- 1 admin admin  9148311516 May  5 21:27 out.r1cs
+-rw-r--r-- 1 admin admin   235556556 May  5 21:33 out.wtns
+-rw-r--r-- 1 admin admin        4550 May  5 21:37 proof.json
+-rw-r--r-- 1 admin admin  5799701488 May  5 21:31 proving.key
+-rw-r--r-- 1 admin admin        9955 May  5 21:31 verification.key
+-rw-r--r-- 1 admin admin   294445608 May  5 21:33 witness
+
+admin@ip-172-31-47-74:~/zkp-audit-zokrates/audit-merkle$ ls -l
+total 54156256
+-rw-r--r-- 1 admin admin         835 May  5 09:18 Makefile
+-rw-r--r-- 1 admin admin        1229 May  5 23:34 abi.json
+-rw-r--r-- 1 admin admin        1504 May  5 09:18 audit-merkle.zok
+-rw-r--r-- 1 admin admin        2258 May  5 09:18 input.json
+-rw-r--r-- 1 admin admin 38558714904 May  5 23:34 out
+-rw-r--r-- 1 admin admin 15698094124 May  5 23:34 out.r1cs
+-rw-r--r-- 1 admin admin    41723404 May  5 23:44 out.wtns
+-rw-r--r-- 1 admin admin         774 May  5 23:48 proof.json
+-rw-r--r-- 1 admin admin  1105272880 May  5 23:40 proving.key
+-rw-r--r-- 1 admin admin        1591 May  5 23:40 verification.key
+-rw-r--r-- 1 admin admin    52154168 May  5 23:43 witness
