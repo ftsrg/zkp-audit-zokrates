@@ -1,0 +1,340 @@
+
+
+******** balances[1] {{{
+rm -f abi.json out out.r1cs out.wtns proof.json proving.key \
+    verification.key witness
+Compiling audit-balances.zok
+
+Compiled code written to 'out'
+Number of constraints: 8786945
+real 585.37
+user 448.57
+sys 28.64
+Performing setup...
+Verification key written to 'verification.key'
+Proving key written to 'proving.key'
+Setup completed
+real 275.10
+user 1170.56
+sys 19.55
+Computing witness...
+
+Witness: 
+[]
+
+Witness file written to 'witness'
+real 173.64
+user 169.93
+sys 3.70
+Generating proof...
+Proof written to 'proof.json'
+real 253.65
+user 698.00
+sys 17.27
+******** }}}} balances[1]
+
+
+******** balances[2] {{{
+rm -f abi.json out out.r1cs out.wtns proof.json proving.key \
+    verification.key witness
+Compiling audit-balances.zok
+
+Compiled code written to 'out'
+Number of constraints: 8786945
+real 561.86
+user 446.59
+sys 30.37
+Performing setup...
+Verification key written to 'verification.key'
+Proving key written to 'proving.key'
+Setup completed
+real 275.98
+user 1169.91
+sys 19.95
+Computing witness...
+
+Witness: 
+[]
+
+Witness file written to 'witness'
+real 172.47
+user 168.96
+sys 3.50
+Generating proof...
+Proof written to 'proof.json'
+real 258.00
+user 702.59
+sys 16.98
+******** }}}} balances[2]
+
+
+******** balances[3] {{{
+rm -f abi.json out out.r1cs out.wtns proof.json proving.key \
+    verification.key witness
+Compiling audit-balances.zok
+
+Compiled code written to 'out'
+Number of constraints: 8786945
+real 570.63
+user 445.58
+sys 31.06
+Performing setup...
+Verification key written to 'verification.key'
+Proving key written to 'proving.key'
+Setup completed
+real 272.57
+user 1169.01
+sys 20.07
+Computing witness...
+
+Witness: 
+[]
+
+Witness file written to 'witness'
+real 174.00
+user 170.34
+sys 3.65
+Generating proof...
+Proof written to 'proof.json'
+real 255.72
+user 696.41
+sys 17.51
+******** }}}} balances[3]
+
+
+******** balances[4] {{{
+rm -f abi.json out out.r1cs out.wtns proof.json proving.key \
+    verification.key witness
+Compiling audit-balances.zok
+
+Compiled code written to 'out'
+Number of constraints: 8786945
+real 578.57
+user 445.01
+sys 30.24
+Performing setup...
+Verification key written to 'verification.key'
+Proving key written to 'proving.key'
+Setup completed
+real 274.60
+user 1167.27
+sys 19.50
+Computing witness...
+
+Witness: 
+[]
+
+Witness file written to 'witness'
+real 172.72
+user 169.23
+sys 3.47
+Generating proof...
+Proof written to 'proof.json'
+real 253.57
+user 694.29
+sys 16.97
+******** }}}} balances[4]
+
+
+******** balances[5] {{{
+rm -f abi.json out out.r1cs out.wtns proof.json proving.key \
+    verification.key witness
+Compiling audit-balances.zok
+
+Compiled code written to 'out'
+Number of constraints: 8786945
+real 561.97
+user 448.74
+sys 30.69
+Performing setup...
+Verification key written to 'verification.key'
+Proving key written to 'proving.key'
+Setup completed
+real 273.06
+user 1166.64
+sys 20.05
+Computing witness...
+
+Witness: 
+[]
+
+Witness file written to 'witness'
+real 172.64
+user 169.15
+sys 3.49
+Generating proof...
+Proof written to 'proof.json'
+real 250.55
+user 695.26
+sys 16.90
+******** }}}} balances[5]
+
+
+******** balances[6] {{{
+rm -f abi.json out out.r1cs out.wtns proof.json proving.key \
+    verification.key witness
+Compiling audit-balances.zok
+
+Compiled code written to 'out'
+Number of constraints: 8786945
+real 560.52
+user 445.16
+sys 30.95
+Performing setup...
+Verification key written to 'verification.key'
+Proving key written to 'proving.key'
+Setup completed
+real 273.97
+user 1166.63
+sys 20.13
+Computing witness...
+
+Witness: 
+[]
+
+Witness file written to 'witness'
+real 175.01
+user 171.63
+sys 3.37
+Generating proof...
+Proof written to 'proof.json'
+real 253.28
+user 696.93
+sys 17.23
+******** }}}} balances[6]
+
+
+******** balances[7] {{{
+rm -f abi.json out out.r1cs out.wtns proof.json proving.key \
+    verification.key witness
+Compiling audit-balances.zok
+
+Compiled code written to 'out'
+Number of constraints: 8786945
+real 560.88
+user 448.24
+sys 30.59
+Performing setup...
+Verification key written to 'verification.key'
+Proving key written to 'proving.key'
+Setup completed
+real 273.08
+user 1164.53
+sys 19.85
+Computing witness...
+
+Witness: 
+[]
+
+Witness file written to 'witness'
+real 173.50
+user 170.03
+sys 3.45
+Generating proof...
+Proof written to 'proof.json'
+real 251.80
+user 695.24
+sys 17.11
+******** }}}} balances[7]
+
+
+******** balances[8] {{{
+rm -f abi.json out out.r1cs out.wtns proof.json proving.key \
+    verification.key witness
+Compiling audit-balances.zok
+
+Compiled code written to 'out'
+Number of constraints: 8786945
+real 557.65
+user 446.23
+sys 30.43
+Performing setup...
+Verification key written to 'verification.key'
+Proving key written to 'proving.key'
+Setup completed
+real 272.18
+user 1164.27
+sys 19.26
+Computing witness...
+
+Witness: 
+[]
+
+Witness file written to 'witness'
+real 174.05
+user 170.52
+sys 3.53
+Generating proof...
+Proof written to 'proof.json'
+real 251.59
+user 695.92
+sys 17.42
+******** }}}} balances[8]
+
+
+******** balances[9] {{{
+rm -f abi.json out out.r1cs out.wtns proof.json proving.key \
+    verification.key witness
+Compiling audit-balances.zok
+
+Compiled code written to 'out'
+Number of constraints: 8786945
+real 569.64
+user 444.02
+sys 30.29
+Performing setup...
+Verification key written to 'verification.key'
+Proving key written to 'proving.key'
+Setup completed
+real 272.58
+user 1165.42
+sys 19.58
+Computing witness...
+
+Witness: 
+[]
+
+Witness file written to 'witness'
+real 173.27
+user 169.74
+sys 3.52
+Generating proof...
+Proof written to 'proof.json'
+real 251.47
+user 694.97
+sys 17.00
+******** }}}} balances[9]
+
+
+******** balances[10] {{{
+rm -f abi.json out out.r1cs out.wtns proof.json proving.key \
+    verification.key witness
+Compiling audit-balances.zok
+
+Compiled code written to 'out'
+Number of constraints: 8786945
+real 563.28
+user 448.53
+sys 30.39
+Performing setup...
+Verification key written to 'verification.key'
+Proving key written to 'proving.key'
+Setup completed
+real 273.28
+user 1169.54
+sys 19.29
+Computing witness...
+
+Witness: 
+[]
+
+Witness file written to 'witness'
+real 175.24
+user 171.61
+sys 3.62
+Generating proof...
+Proof written to 'proof.json'
+real 256.44
+user 703.26
+sys 17.27
+******** }}}} balances[10]
