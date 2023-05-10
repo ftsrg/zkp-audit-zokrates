@@ -1,0 +1,340 @@
+
+
+******** merkle[1] {{{
+rm -f abi.json out out.r1cs out.wtns proof.json proving.key \
+    verification.key witness
+Compiling audit-merkle.zok
+
+Compiled code written to 'out'
+Number of constraints: 1311260
+real 796.94
+user 498.41
+sys 31.75
+Performing setup...
+Verification key written to 'verification.key'
+Proving key written to 'proving.key'
+Setup completed
+real 362.09
+user 405.13
+sys 14.29
+Computing witness...
+
+Witness: 
+[]
+
+Witness file written to 'witness'
+real 237.53
+user 232.79
+sys 4.73
+Generating proof...
+Proof written to 'proof.json'
+real 243.29
+user 308.51
+sys 11.81
+******** }}} merkle[1]
+
+
+******** merkle[2] {{{
+rm -f abi.json out out.r1cs out.wtns proof.json proving.key \
+    verification.key witness
+Compiling audit-merkle.zok
+
+Compiled code written to 'out'
+Number of constraints: 1311260
+real 813.91
+user 495.80
+sys 32.27
+Performing setup...
+Verification key written to 'verification.key'
+Proving key written to 'proving.key'
+Setup completed
+real 372.31
+user 410.40
+sys 14.50
+Computing witness...
+
+Witness: 
+[]
+
+Witness file written to 'witness'
+real 237.28
+user 232.63
+sys 4.64
+Generating proof...
+Proof written to 'proof.json'
+real 241.75
+user 307.00
+sys 11.86
+******** }}} merkle[2]
+
+
+******** merkle[3] {{{
+rm -f abi.json out out.r1cs out.wtns proof.json proving.key \
+    verification.key witness
+Compiling audit-merkle.zok
+
+Compiled code written to 'out'
+Number of constraints: 1311260
+real 795.36
+user 497.35
+sys 33.14
+Performing setup...
+Verification key written to 'verification.key'
+Proving key written to 'proving.key'
+Setup completed
+real 360.82
+user 404.78
+sys 14.67
+Computing witness...
+
+Witness: 
+[]
+
+Witness file written to 'witness'
+real 236.40
+user 231.53
+sys 4.85
+Generating proof...
+Proof written to 'proof.json'
+real 241.12
+user 306.78
+sys 11.53
+******** }}} merkle[3]
+
+
+******** merkle[4] {{{
+rm -f abi.json out out.r1cs out.wtns proof.json proving.key \
+    verification.key witness
+Compiling audit-merkle.zok
+
+Compiled code written to 'out'
+Number of constraints: 1311260
+real 809.46
+user 493.09
+sys 32.41
+Performing setup...
+Verification key written to 'verification.key'
+Proving key written to 'proving.key'
+Setup completed
+real 373.36
+user 414.46
+sys 13.87
+Computing witness...
+
+Witness: 
+[]
+
+Witness file written to 'witness'
+real 235.94
+user 231.27
+sys 4.66
+Generating proof...
+Proof written to 'proof.json'
+real 242.76
+user 307.94
+sys 11.68
+******** }}} merkle[4]
+
+
+******** merkle[5] {{{
+rm -f abi.json out out.r1cs out.wtns proof.json proving.key \
+    verification.key witness
+Compiling audit-merkle.zok
+
+Compiled code written to 'out'
+Number of constraints: 1311260
+real 808.63
+user 497.58
+sys 32.60
+Performing setup...
+Verification key written to 'verification.key'
+Proving key written to 'proving.key'
+Setup completed
+real 361.37
+user 404.95
+sys 14.56
+Computing witness...
+
+Witness: 
+[]
+
+Witness file written to 'witness'
+real 236.74
+user 231.86
+sys 4.87
+Generating proof...
+Proof written to 'proof.json'
+real 248.11
+user 313.88
+sys 11.32
+******** }}} merkle[5]
+
+
+******** merkle[6] {{{
+rm -f abi.json out out.r1cs out.wtns proof.json proving.key \
+    verification.key witness
+Compiling audit-merkle.zok
+
+Compiled code written to 'out'
+Number of constraints: 1311260
+real 809.50
+user 493.41
+sys 32.44
+Performing setup...
+Verification key written to 'verification.key'
+Proving key written to 'proving.key'
+Setup completed
+real 367.93
+user 413.61
+sys 14.49
+Computing witness...
+
+Witness: 
+[]
+
+Witness file written to 'witness'
+real 243.99
+user 239.44
+sys 4.53
+Generating proof...
+Proof written to 'proof.json'
+real 242.62
+user 308.05
+sys 11.47
+******** }}} merkle[6]
+
+
+******** merkle[7] {{{
+rm -f abi.json out out.r1cs out.wtns proof.json proving.key \
+    verification.key witness
+Compiling audit-merkle.zok
+
+Compiled code written to 'out'
+Number of constraints: 1311260
+real 808.29
+user 493.14
+sys 32.12
+Performing setup...
+Verification key written to 'verification.key'
+Proving key written to 'proving.key'
+Setup completed
+real 371.88
+user 407.88
+sys 14.23
+Computing witness...
+
+Witness: 
+[]
+
+Witness file written to 'witness'
+real 236.66
+user 231.65
+sys 5.00
+Generating proof...
+Proof written to 'proof.json'
+real 244.53
+user 310.14
+sys 11.37
+******** }}} merkle[7]
+
+
+******** merkle[8] {{{
+rm -f abi.json out out.r1cs out.wtns proof.json proving.key \
+    verification.key witness
+Compiling audit-merkle.zok
+
+Compiled code written to 'out'
+Number of constraints: 1311260
+real 816.33
+user 496.50
+sys 31.82
+Performing setup...
+Verification key written to 'verification.key'
+Proving key written to 'proving.key'
+Setup completed
+real 365.30
+user 404.41
+sys 13.85
+Computing witness...
+
+Witness: 
+[]
+
+Witness file written to 'witness'
+real 235.99
+user 231.16
+sys 4.82
+Generating proof...
+Proof written to 'proof.json'
+real 240.37
+user 305.46
+sys 11.68
+******** }}} merkle[8]
+
+
+******** merkle[9] {{{
+rm -f abi.json out out.r1cs out.wtns proof.json proving.key \
+    verification.key witness
+Compiling audit-merkle.zok
+
+Compiled code written to 'out'
+Number of constraints: 1311260
+real 792.98
+user 498.17
+sys 31.82
+Performing setup...
+Verification key written to 'verification.key'
+Proving key written to 'proving.key'
+Setup completed
+real 359.57
+user 405.39
+sys 14.30
+Computing witness...
+
+Witness: 
+[]
+
+Witness file written to 'witness'
+real 236.79
+user 232.30
+sys 4.48
+Generating proof...
+Proof written to 'proof.json'
+real 244.15
+user 310.08
+sys 11.30
+******** }}} merkle[9]
+
+
+******** merkle[10] {{{
+rm -f abi.json out out.r1cs out.wtns proof.json proving.key \
+    verification.key witness
+Compiling audit-merkle.zok
+
+Compiled code written to 'out'
+Number of constraints: 1311260
+real 817.96
+user 494.25
+sys 30.25
+Performing setup...
+Verification key written to 'verification.key'
+Proving key written to 'proving.key'
+Setup completed
+real 370.31
+user 402.00
+sys 13.48
+Computing witness...
+
+Witness: 
+[]
+
+Witness file written to 'witness'
+real 236.66
+user 232.06
+sys 4.59
+Generating proof...
+Proof written to 'proof.json'
+real 244.69
+user 309.65
+sys 11.19
+******** }}} merkle[10]

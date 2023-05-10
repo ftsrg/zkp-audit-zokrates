@@ -1,0 +1,15 @@
+#!/bin/sh -euC
+
+generate_times()
+{
+	program=$1
+	awk '/^real/{print $2}' $program.log \
+	| awk -vtype=$program \
+	    'BEGIN{printf("%s,%d,",type,++I)}
+	     NR%4{printf("%s,",$0);next}
+	     {print$0;printf("%s,%d,",type,++I)}' \
+	| sed 10q
+}
+
+echo program,number,compilation,setup,witness,proof
+for p in balances whitelist merkle; do generate_times $p; done

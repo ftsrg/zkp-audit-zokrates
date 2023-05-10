@@ -6,7 +6,7 @@ INPUT=		input.json
 
 PROVING_SCHEME=	gm17
 
-TIME=           time
+TIME=           time -p
 
 ZOKRATES=	zokrates
 COMPILE_FLAGS=	--debug
