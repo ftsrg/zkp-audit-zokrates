@@ -1,0 +1,340 @@
+
+
+******** whitelist[1] {{{
+rm -f abi.json out out.r1cs out.wtns proof.json proving.key \
+    verification.key witness
+Compiling audit-whitelist.zok
+
+Compiled code written to 'out'
+Number of constraints: 7407430
+real 532.21
+user 422.25
+sys 29.66
+Performing setup...
+Verification key written to 'verification.key'
+Proving key written to 'proving.key'
+Setup completed
+real 241.19
+user 852.48
+sys 16.83
+Computing witness...
+
+Witness: 
+[]
+
+Witness file written to 'witness'
+real 168.25
+user 164.87
+sys 3.37
+Generating proof...
+Proof written to 'proof.json'
+real 216.89
+user 455.13
+sys 13.94
+******** }}} whitelist[1]
+
+
+******** whitelist[2] {{{
+rm -f abi.json out out.r1cs out.wtns proof.json proving.key \
+    verification.key witness
+Compiling audit-whitelist.zok
+
+Compiled code written to 'out'
+Number of constraints: 7407430
+real 545.13
+user 425.64
+sys 29.54
+Performing setup...
+Verification key written to 'verification.key'
+Proving key written to 'proving.key'
+Setup completed
+real 242.18
+user 851.57
+sys 16.65
+Computing witness...
+
+Witness: 
+[]
+
+Witness file written to 'witness'
+real 171.84
+user 168.30
+sys 3.53
+Generating proof...
+Proof written to 'proof.json'
+real 215.83
+user 452.89
+sys 13.83
+******** }}} whitelist[2]
+
+
+******** whitelist[3] {{{
+rm -f abi.json out out.r1cs out.wtns proof.json proving.key \
+    verification.key witness
+Compiling audit-whitelist.zok
+
+Compiled code written to 'out'
+Number of constraints: 7407430
+real 531.91
+user 420.28
+sys 29.64
+Performing setup...
+Verification key written to 'verification.key'
+Proving key written to 'proving.key'
+Setup completed
+real 240.88
+user 851.51
+sys 16.48
+Computing witness...
+
+Witness: 
+[]
+
+Witness file written to 'witness'
+real 168.84
+user 165.45
+sys 3.39
+Generating proof...
+Proof written to 'proof.json'
+real 220.83
+user 460.82
+sys 13.97
+******** }}} whitelist[3]
+
+
+******** whitelist[4] {{{
+rm -f abi.json out out.r1cs out.wtns proof.json proving.key \
+    verification.key witness
+Compiling audit-whitelist.zok
+
+Compiled code written to 'out'
+Number of constraints: 7407430
+real 544.83
+user 427.82
+sys 30.38
+Performing setup...
+Verification key written to 'verification.key'
+Proving key written to 'proving.key'
+Setup completed
+real 240.92
+user 855.84
+sys 17.15
+Computing witness...
+
+Witness: 
+[]
+
+Witness file written to 'witness'
+real 170.75
+user 167.26
+sys 3.47
+Generating proof...
+Proof written to 'proof.json'
+real 217.74
+user 456.20
+sys 13.94
+******** }}} whitelist[4]
+
+
+******** whitelist[5] {{{
+rm -f abi.json out out.r1cs out.wtns proof.json proving.key \
+    verification.key witness
+Compiling audit-whitelist.zok
+
+Compiled code written to 'out'
+Number of constraints: 7407430
+real 535.48
+user 426.79
+sys 30.30
+Performing setup...
+Verification key written to 'verification.key'
+Proving key written to 'proving.key'
+Setup completed
+real 243.02
+user 856.13
+sys 17.03
+Computing witness...
+
+Witness: 
+[]
+
+Witness file written to 'witness'
+real 169.04
+user 165.70
+sys 3.33
+Generating proof...
+Proof written to 'proof.json'
+real 216.65
+user 455.13
+sys 13.75
+******** }}} whitelist[5]
+
+
+******** whitelist[6] {{{
+rm -f abi.json out out.r1cs out.wtns proof.json proving.key \
+    verification.key witness
+Compiling audit-whitelist.zok
+
+Compiled code written to 'out'
+Number of constraints: 7407430
+real 539.13
+user 423.60
+sys 29.53
+Performing setup...
+Verification key written to 'verification.key'
+Proving key written to 'proving.key'
+Setup completed
+real 240.90
+user 853.51
+sys 17.15
+Computing witness...
+
+Witness: 
+[]
+
+Witness file written to 'witness'
+real 169.12
+user 165.62
+sys 3.50
+Generating proof...
+Proof written to 'proof.json'
+real 216.68
+user 454.72
+sys 13.81
+******** }}} whitelist[6]
+
+
+******** whitelist[7] {{{
+rm -f abi.json out out.r1cs out.wtns proof.json proving.key \
+    verification.key witness
+Compiling audit-whitelist.zok
+
+Compiled code written to 'out'
+Number of constraints: 7407430
+real 531.34
+user 422.22
+sys 30.23
+Performing setup...
+Verification key written to 'verification.key'
+Proving key written to 'proving.key'
+Setup completed
+real 242.96
+user 855.27
+sys 16.65
+Computing witness...
+
+Witness: 
+[]
+
+Witness file written to 'witness'
+real 169.23
+user 165.72
+sys 3.50
+Generating proof...
+Proof written to 'proof.json'
+real 216.90
+user 455.18
+sys 13.92
+******** }}} whitelist[7]
+
+
+******** whitelist[8] {{{
+rm -f abi.json out out.r1cs out.wtns proof.json proving.key \
+    verification.key witness
+Compiling audit-whitelist.zok
+
+Compiled code written to 'out'
+Number of constraints: 7407430
+real 545.20
+user 421.71
+sys 30.35
+Performing setup...
+Verification key written to 'verification.key'
+Proving key written to 'proving.key'
+Setup completed
+real 242.43
+user 853.19
+sys 16.87
+Computing witness...
+
+Witness: 
+[]
+
+Witness file written to 'witness'
+real 168.03
+user 164.55
+sys 3.46
+Generating proof...
+Proof written to 'proof.json'
+real 217.01
+user 454.82
+sys 14.17
+******** }}} whitelist[8]
+
+
+******** whitelist[9] {{{
+rm -f abi.json out out.r1cs out.wtns proof.json proving.key \
+    verification.key witness
+Compiling audit-whitelist.zok
+
+Compiled code written to 'out'
+Number of constraints: 7407430
+real 532.77
+user 420.44
+sys 30.13
+Performing setup...
+Verification key written to 'verification.key'
+Proving key written to 'proving.key'
+Setup completed
+real 241.77
+user 853.09
+sys 16.39
+Computing witness...
+
+Witness: 
+[]
+
+Witness file written to 'witness'
+real 167.74
+user 164.59
+sys 3.13
+Generating proof...
+Proof written to 'proof.json'
+real 216.82
+user 453.87
+sys 13.96
+******** }}} whitelist[9]
+
+
+******** whitelist[10] {{{
+rm -f abi.json out out.r1cs out.wtns proof.json proving.key \
+    verification.key witness
+Compiling audit-whitelist.zok
+
+Compiled code written to 'out'
+Number of constraints: 7407430
+real 540.97
+user 423.00
+sys 30.61
+Performing setup...
+Verification key written to 'verification.key'
+Proving key written to 'proving.key'
+Setup completed
+real 240.19
+user 848.75
+sys 16.35
+Computing witness...
+
+Witness: 
+[]
+
+Witness file written to 'witness'
+real 167.06
+user 163.83
+sys 3.21
+Generating proof...
+Proof written to 'proof.json'
+real 216.68
+user 454.01
+sys 13.80
+******** }}} whitelist[10]

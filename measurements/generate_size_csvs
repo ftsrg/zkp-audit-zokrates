@@ -1,0 +1,15 @@
+#!/bin/sh -euC
+
+generate_sizes()
+{
+	program=$1
+	awk 'NR>=6{print $5}' $program.sizes \
+	| awk -vtype=$program \
+	    'BEGIN{printf("%s,",type)}
+	     NR%7{printf("%s,",$0);next}
+	     {print $0;printf("%s,",type)}' \
+	| sed 1q
+}
+
+echo program,zir,r1cs,out_witness,proof,provingkey,verificationkey,witness
+for p in balances whitelist merkle; do generate_sizes $p; done
