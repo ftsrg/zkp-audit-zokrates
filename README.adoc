@@ -25,6 +25,7 @@ This repository hosts the prototype source code related to the article _Privacy-
 ----
 
 
+
 == AUDIT PROGRAMS
 
 The three example audit programs reside in separate directories.
@@ -1017,3 +1018,17 @@ Which gives you:
 ----
 
 NOTE: Output has been piped through https://stedolan.github.io/jq/[`jq`] and then manually adjusted; your output will not be prettified by default.
+
+== MISCELLANEOUS
+
+=== License
+
+The contents of this repository are licensed under *Apache 2.0.*
+Please refer to the `LICENSE` file.
+
+For additional information regarding the licenses of external libraries and tools referenced as dependencies, please consult the `NOTICE` file.
+
+=== Contributors
+
+.List of contributors to this project
+* Bertalan Zoltán Péter `<bpeter@edu.bme.hu>`
