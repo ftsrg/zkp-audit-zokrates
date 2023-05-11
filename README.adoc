@@ -20,7 +20,8 @@ This repository hosts the prototype source code related to the article _Privacy-
 ----
 @unpublished{peter_kocsis,
         title   = {Privacy-Preserving Noninteractive Compliance Audits of Blockchain Ledgers with Zero-Knowledge Proofs},
-        author  = {Péter, Bertalan Zoltán and Kocsis, Imre}
+        author  = {Péter, Bertalan Zoltán and Kocsis, Imre},
+        note    = {repository: \url{https://github.com/ftsrg/zkp-audit-zokrates}}
 }
 ----
 
