@@ -30,7 +30,7 @@ This repository hosts the prototype source code related to the article _Privacy-
 == AUDIT PROGRAMS
 
 The three example audit programs reside in separate directories.
-Some shared ZoKrates code is factored out into `common/` and `util/`.
+Some shared ZoKrates code is factored out into link:common/[`common/`] and link:util/[`util/`].
 
 In every program’s directory, you will find a `Makefile` which makes it easy to automatically perform all the steps to get from source code in ZoKrates and an input JSON file to a valid proof file.
 You can then try verifying the proof using the `verify` target.
@@ -52,18 +52,18 @@ The generated `abi.json` descibes what inputs the programs expect.
 
 === Common types
 
-In `common.zok`, you will find the domain-specific types used in the audit programs, such as the structure that encodes a `Transaction` or a `Block`.
+In link:common/common.zok[`common.zok`], you will find the domain-specific types used in the audit programs, such as the structure that encodes a `Transaction` or a `Block`.
 
 === `u32[8]` tools
 
 Unfortunately, the only way to deal with large (256-bit) numbers in ZoKrates is to store them in a split form in an array.
-The `u32_8_tools` ‘library’ provides the API to work with these `u32[8]` objects, defining functions for example, that are able to add two ``u32[8]``-encoded numbers together.
+The link:util/u32_8_tools.zok[`u32_8_tools`] ‘library’ provides the API to work with these `u32[8]` objects, defining functions for example, that are able to add two ``u32[8]``-encoded numbers together.
 
 
 == INPUT GENERATION
 
 `input.json` files would be extremely cumbersome to write by hand.
-This is why `input_generator` was born.
+This is why link:input_generator/[`input_generator`] was born.
 It lets you generate `input.json` files from much simpler, human writable input files.
 
 For example, consider the following input (an input of the `input_generator`, that is):
@@ -96,7 +96,7 @@ Finally, the whitelist is defined as list of accounts.
 
 NOTE: Account identifiers have to be strings even if they are numeric, as JSON keys are always strings.
 
-The `input_generator` project is able to take this data and generate the input files required by the audit programs, performing the necessary transformations, calculating hash values, etc.
+The link:input_generator/[`input_generator`] project is able to take this data and generate the input files required by the audit programs, performing the necessary transformations, calculating hash values, etc.
 
 INFO: To use the input generator, you will need `NodeJS` *(≥ v14)* and `npm`.
 
@@ -136,14 +136,14 @@ ARGUMENTS:
   <audit type> - One of 'balances', 'whitelist', 'merkle'
 ----
 
-For instance, to generate input for `audit-balances`:
+For instance, to generate input for link:audit-balances/[`audit-balances`]:
 
 [source,shell-session]
 ----
 [input_generator/] $ npm start --silent -- -i input.json balances
 ----
 
-The above command gives you `examples/readme-input-example.json`, which looks like the following:
+The above command gives you link:examples/readme-input.json[`examples/readme-input.json`], which looks like the following:
 
 [source,json]
 ----
@@ -196,9 +196,9 @@ The above command gives you `examples/readme-input-example.json`, which looks li
 === License
 
 The contents of this repository are licensed under *Apache 2.0.*
-Please refer to the `LICENSE` file.
+Please refer to the link:LICENSE[`LICENSE`] file.
 
-For additional information regarding the licenses of external libraries and tools referenced as dependencies, please consult the `NOTICE` file.
+For additional information regarding the licenses of external libraries and tools referenced as dependencies, please consult the link:NOTICE[`NOTICE`] file.
 
 === Contributors
 
